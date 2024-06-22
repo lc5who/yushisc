@@ -1,0 +1,218 @@
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000785s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002077s ]
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000721s ]
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000042s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001627s ]
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000622s ]
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:27:26+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T00:27:31+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000095s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:27:31+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:27:31+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002205s ]
+info
+[ 2024-06-19T00:27:31+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000927s ]
+info
+[ 2024-06-19T00:27:31+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:27:56+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000111s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:27:56+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:27:56+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002256s ]
+info
+[ 2024-06-19T00:27:56+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000833s ]
+info
+[ 2024-06-19T00:27:56+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000114s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002129s ]
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000830s ]
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000056s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.001386s ]
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000548s ]
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:28:09+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000112s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003286s ]
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000760s ]
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000045s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002174s ]
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000540s ]
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T00:30:32+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000200s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003515s ]
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000983s ]
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000042s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002306s ]
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000609s ]
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T01:21:04+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000099s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003544s ]
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000921s ]
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000043s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002314s ]
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000595s ]
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T01:29:05+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000260s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003502s ]
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000738s ]
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000045s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002358s ]
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000610s ]
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T06:24:05+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000303s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003431s ]
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000845s ]
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000044s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002386s ]
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000561s ]
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T06:47:40+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
+[ 2024-06-19T06:50:38+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000093s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T06:50:38+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T06:50:38+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.003642s ]
+info
+[ 2024-06-19T06:50:38+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000889s ]
+info
+[ 2024-06-19T06:50:38+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T06:50:39+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000047s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-19T06:50:39+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-19T06:50:39+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.002368s ]
+info
+[ 2024-06-19T06:50:39+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.000614s ]
+info
+[ 2024-06-19T06:50:39+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-19T06:50:39+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info

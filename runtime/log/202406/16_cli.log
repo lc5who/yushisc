@@ -1,0 +1,59 @@
+[ 2024-06-16T23:25:36+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000581s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-16T23:25:36+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-16T23:25:36+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.013413s ]
+info
+[ 2024-06-16T23:25:36+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.005378s ]
+info
+[ 2024-06-16T23:25:37+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-16T23:25:37+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-16T23:41:46+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000060s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-16T23:41:46+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-16T23:41:46+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017348s ]
+info
+[ 2024-06-16T23:41:46+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.006093s ]
+info
+[ 2024-06-16T23:41:46+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-16T23:42:14+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000062s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-16T23:42:14+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-16T23:42:14+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.016332s ]
+info
+[ 2024-06-16T23:42:14+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.007219s ]
+info
+[ 2024-06-16T23:42:14+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000064s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.014389s ]
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.005531s ]
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000062s ]
+[ info ] [ LOG ] INIT File
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ CACHE ] INIT File
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.017120s ]
+info
+[ 2024-06-16T23:42:39+08:00 ][ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_init [ RunTime:0.006285s ]
+info
+[ 2024-06-16T23:42:40+08:00 ][ info ] [ DB ] INIT mysql
+info
+[ 2024-06-16T23:42:40+08:00 ][ info ] [ LANG ] /www/wwwroot/www.yushi.com/application/admin/lang/zh-cn.php
+info
