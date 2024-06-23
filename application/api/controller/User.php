@@ -2,10 +2,12 @@
 
 namespace app\api\controller;
 
+use app\admin\model\Address;
 use app\admin\model\Bankinfo;
 use app\common\controller\Api;
 use app\common\library\Ems;
 use app\common\library\Sms;
+use app\common\model\MoneyLog;
 use fast\Random;
 use think\Config;
 use think\console\command\optimize\Schema;
@@ -355,14 +357,20 @@ class User extends Api
 
     public function addresslist()
     {
-
+        $user = $this->auth->getUser();
+        $list = Address::where('userId',$user['id'])->order('addressId desc')->select();
+        $this->success('获取成功',$list);
         
     }
 
     public function addaddress()
     {
         $user = $this->auth->getUser();
-        $form = $this->request->param();
+        $address = $this->request->param();
+        $address['userId']=$user['id'];
+        Address::create($address);
+        $this->success('操作成功');
+
     }
 
     public function area()
@@ -386,6 +394,7 @@ class User extends Api
         $this->success('获取成功',['fanscount'=>$fanscount,'teamcount'=>0]);
     }
 
+    //提现
     public function draw()
     {
         $user = $this->auth->getUser();
@@ -397,5 +406,20 @@ class User extends Api
         $bank = Bankinfo::get($bid);
         if (!$bank) $this->error('请选择收款方式');
         
+    }
+
+
+    public function caplogdetail()
+    {
+        $user = $this->auth->getUser();
+        $limit = $this->request->param('limit',20);
+        $list = MoneyLog::where('user_id',$user['id'])->order('id desc')->paginate($limit);
+        $this->success('获取成功',$list);
+    }
+
+    public function realname()
+    {
+        $user = $this->auth->getUser();
+        $authImage = $this->request->param('authImage');
     }
 }

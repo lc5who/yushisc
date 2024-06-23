@@ -29,8 +29,11 @@ class Order extends Model
         'payTime_text',
         'endTime_text'
     ];
-    
 
+//    public function goods()
+//    {
+//        return $this->belongsTo('Goods','goodsId');
+//    }
     
     public function getStatusList()
     {

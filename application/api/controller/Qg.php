@@ -40,24 +40,23 @@ class Qg extends Api
         $id = $this->request->param('id');
         $goods = Goods::get($id);
         if (!$goods) $this->error('无此商品');
-        if (!$goods['buyer']) $this->error('此商品被人抢走啦');
+        if ($goods['buyer_id']>0) $this->error('此商品被人抢走啦');
         $orderSn = 'QG'.getSn();
-        $goods->update([
+        $goods->save([
             'orderSn'=>$orderSn,
-            'buyerusername'=>$user['nickname'],
-            'buyermobile'=>$user['mobile'],
+            'buyusername'=>$user['nickname'],
+            'buymobile'=>$user['mobile'],
+            'buyer_id'=>$user['id'],
             'status'=>2,
             'onlineStatus'=>0,
         ]);
 
         Order::create([
             'orderSn'=>$orderSn,
-            'sellUserId'=>$goods[''],
+            'sellUserId'=>$goods['seller_id'],
             'buyUserId'=>$user['id'],
             'goodsId'=>$goods['id'],
-            'price'=>$goods['price'],
-            'seller_id'=>$goods['seller_id'],
-            'buyer_id'=>$user['id'],
+            'price'=>$goods['goodsPrice'],
             'status'=>'1',
         ]);
         $this->success('抢购成功');

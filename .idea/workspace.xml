@@ -5,8 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f7ac7ab-dae6-45bb-b8e2-8bbaaa817db8" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/controller/Address.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/lang/zh-cn/address.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/model/Address.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/validate/Address.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/view/address/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/view/address/edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/admin/view/address/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/api/controller/Order.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/js/backend/address.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runtime/temp/929bc8b19401f5e54d67b1f37de11be5.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runtime/temp/a8e70e62d0d13b323c28156abb614058.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/common.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/model/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/model/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/api/controller/Qg.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/controller/Qg.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/api/controller/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/controller/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/common.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime/cache/c6/cd4ae8d13a015b1588456d01607b61.php" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/cache/c6/cd4ae8d13a015b1588456d01607b61.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime/cache/cb/78ef4a9130f39208ff10858ddd8377.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime/log/202406/23.log" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/202406/23.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtime/log/202406/23_cli.log" beforeDir="false" afterPath="$PROJECT_DIR$/runtime/log/202406/23_cli.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,26 +103,30 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2i3lY3oo8mA3edNHQYyzXpWBOKd" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/charlesli/Desktop/www/www.yushi.com&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/charlesli/Desktop/www/www.yushi.com",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -125,7 +148,7 @@
       <updated>1718727187048</updated>
       <workItem from="1718727188243" duration="41983000" />
       <workItem from="1719079727839" duration="4088000" />
-      <workItem from="1719097982000" duration="23000" />
+      <workItem from="1719097982000" duration="4415000" />
     </task>
     <servers />
   </component>
@@ -134,5 +157,19 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
