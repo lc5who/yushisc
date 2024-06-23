@@ -73,7 +73,7 @@ class Qg extends Api
 
     public function goodsDetail()
     {
-        $id = $this->request->param();
+        $id = $this->request->param('id');
         $goods = Goods::get($id);
         $this->success('获取成功',$goods);
     }
