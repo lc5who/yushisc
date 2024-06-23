@@ -77,7 +77,8 @@ class Login extends Api
             'viewpass'=>$password,
             ]);
         if ($ret) {
-            $data = ['userinfo' => $this->auth->getUserinfo()];
+            $data = $this->auth->getUser();
+            $data['token']=$this->auth->getUserinfo()['token'];
             $this->success(__('Sign up successful'), $data);
         } else {
             $this->error($this->auth->getError());
@@ -92,10 +93,5 @@ class Login extends Api
         $this->success(__('Logout successful'));
     }
 
-    public function goodsDetail()
-    {
-        $id = $this->request->param();
-        $goods = Goods::get($id);
-        $this->success('获取成功',$goods);
-    }
+
 }

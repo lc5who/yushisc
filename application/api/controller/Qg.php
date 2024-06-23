@@ -70,4 +70,11 @@ class Qg extends Api
         $result = ['info' => ['ordercount'=>0,'orderprice'=>0], 'list'=>$list];
         $this->success('获取成功',$result);
     }
+
+    public function goodsDetail()
+    {
+        $id = $this->request->param();
+        $goods = Goods::get($id);
+        $this->success('获取成功',$goods);
+    }
 }
