@@ -4,6 +4,7 @@ namespace app\api\controller;
 
 use app\admin\model\Address;
 use app\admin\model\Bankinfo;
+use app\admin\model\Sign;
 use app\common\controller\Api;
 use app\common\library\Ems;
 use app\common\library\Sms;
@@ -421,5 +422,14 @@ class User extends Api
     {
         $user = $this->auth->getUser();
         $authImage = $this->request->param('authImage');
+        $upUser = \app\admin\model\User::where('id',$user['up_id'])->find();
+        Sign::create([
+            'user_id'=>$user['id'],
+            'name'=>$user['nickname'],
+            'up_name'=>$upUser['nickname'],
+            'up_id'=>$upUser['id'],
+            'authimage'=>$authImage,
+        ]);
+        $this->success('已成功提交');
     }
 }
