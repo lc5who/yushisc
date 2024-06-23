@@ -4,6 +4,7 @@ namespace app\api\controller;
 
 use app\admin\model\Address;
 use app\admin\model\Bankinfo;
+use app\admin\model\Recharge;
 use app\admin\model\Sign;
 use app\common\controller\Api;
 use app\common\library\Ems;
@@ -431,5 +432,26 @@ class User extends Api
             'authimage'=>$authImage,
         ]);
         $this->success('已成功提交');
+    }
+
+    public function recharge()
+    {
+        $user = $this->auth->getUser();
+        $method  = $this->request->param('method');
+        $money  = $this->request->param('money');
+        $czpzimage =$this->request->param('czpzimage');
+        if ($method=='bank') $method='银行卡';
+        if ($method=='wx') $method='微信';
+        if ($method=='alipay') $method='支付宝';
+        Recharge::create([
+            'user_id'=>$user['id'],
+            'realname'=>$user['nickname'],
+            'username'=>$user['username'],
+            'money'=>$money,
+            'pmdata'=>$method,
+            'czpzimage'=>$czpzimage,
+        ]);
+        $this->success('提交成功');
+
     }
 }
