@@ -75,6 +75,8 @@ class Login extends Api
             'up_mobile'=>$upUser['username'],
             'inviteCode'=>$newInviteCode,
             'viewpass'=>$password,
+            'nickname'=>$nickname,
+            
             ]);
         if ($ret) {
             $data = $this->auth->getUser();
