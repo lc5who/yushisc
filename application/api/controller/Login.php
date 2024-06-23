@@ -51,8 +51,8 @@ class Login extends Api
 
     public function register()
     {
-        $username=  $this->request->param('userName');
-        $userPhone=  $this->request->param('userPhone');
+        $nickname=  $this->request->param('userName');
+        $username=  $this->request->param('userPhone');
         $password=  $this->request->param('password');
         $paypassword=  $this->request->param('paypassword');
         $inviteCode=  $this->request->param('inviteCode');
