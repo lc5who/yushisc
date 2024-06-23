@@ -28,7 +28,7 @@ class Login extends Api
         }
         $ret = $this->auth->login($account, $password);
         if ($ret) {
-            $data = ['userinfo' => $this->auth->getUserinfo()];
+            $data = $this->auth->getUser();
             $this->success(__('Logged in successful'), $data);
         } else {
             $this->error($this->auth->getError());
@@ -79,5 +79,13 @@ class Login extends Api
         } else {
             $this->error($this->auth->getError());
         }
+    }
+    public function loginOut()
+    {
+        if (!$this->request->isPost()) {
+            $this->error(__('Invalid parameters'));
+        }
+        $this->auth->logout();
+        $this->success(__('Logout successful'));
     }
 }
