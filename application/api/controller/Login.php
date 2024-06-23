@@ -2,6 +2,7 @@
 
 namespace app\api\controller;
 
+use app\admin\model\Goods;
 use app\common\controller\Api;
 use app\common\library\Sms;
 use think\Validate;
@@ -28,7 +29,9 @@ class Login extends Api
         }
         $ret = $this->auth->login($account, $password);
         if ($ret) {
+//            $data = ['userinfo' => $this->auth->getUserinfo()];
             $data = $this->auth->getUser();
+            $data['token']=$this->auth->getUserinfo()['token'];
             $this->success(__('Logged in successful'), $data);
         } else {
             $this->error($this->auth->getError());
@@ -87,5 +90,12 @@ class Login extends Api
         }
         $this->auth->logout();
         $this->success(__('Logout successful'));
+    }
+
+    public function goodsDetail()
+    {
+        $id = $this->request->param();
+        $goods = Goods::get($id);
+        $this->success('获取成功',$goods);
     }
 }
