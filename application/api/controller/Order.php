@@ -29,7 +29,7 @@ class Order extends Api
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
-        $list = OrderModel::where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+        $list = OrderModel::with('profile')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
         $this->success('获取成功',$list);
     }
 
@@ -87,7 +87,6 @@ class Order extends Api
         $orderId = input('orderId');
         $payId = input('payId');
         $payPic = input('payPic');
-        $dkInfo = input('dkInfo');
         $order= OrderModel::get($orderId);
         if (!$order) $this->error('无此订单');
         if ($order['status']!='2') $this->error('当前订单不可支付');
@@ -95,7 +94,6 @@ class Order extends Api
         $order->save([
             'payid'=>$payId,
             'payPic'=>$payPic,
-            'dkinfo'=>$dkInfo,
             'payTime'=>time(),
             'isdk'=>1,
             'status'=>'3',
@@ -107,7 +105,7 @@ class Order extends Api
 
     public function confirmDetail()
     {
-//        $orderId = input('orderId');
+        $orderId = input('orderId');
 //        $order= OrderModel::get($orderId);
 //        $goods = Goods::get($order['goodsId']);
 //        $seller = UserModel::get('sellUserId');

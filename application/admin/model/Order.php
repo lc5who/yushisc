@@ -72,5 +72,9 @@ class Order extends Model
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
 
+    public function goods()
+    {
+        return $this->hasOne('Goods','goodsId','id');
+    }
 
 }
