@@ -23,7 +23,7 @@ class Qg extends Api
         $data = [
             "manyminutes"=> "1",
         "rushswitch"=> "1",
-        "salestarttime"=> "18:00:00",
+        "salestarttime"=> "09:00:00",
         "saleendtime"=> "23:30:00",
         "qgbackimage"=> "http=>\/\/dtqzuwsa.xinzhihuikeji.cn\/\/uploads\/20240318\/990c4e271502f9405548bc39924869d2.jpg",
         "name"=> "佛山市尚卓轩科技有限公司",
@@ -31,7 +31,7 @@ class Qg extends Api
         "ordercount"=> 0,
         "sumprice"=> 0
         ];
-        $this->success('获取成功');
+        $this->success('获取成功',$data);
     }
 
     public function createOrder()

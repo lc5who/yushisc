@@ -76,7 +76,7 @@ class Login extends Api
             'inviteCode'=>$newInviteCode,
             'viewpass'=>$password,
             'nickname'=>$nickname,
-            
+
             ]);
         if ($ret) {
             $data = $this->auth->getUser();
