@@ -95,7 +95,7 @@ class Common extends Api
             $action = $this->request->post("action");
             $chunkindex = $this->request->post("chunkindex/d");
             $chunkcount = $this->request->post("chunkcount/d");
-            $filename = $this->request->post("base64");
+            $filename = $this->request->post("filename");
             $method = $this->request->method(true);
             if ($action == 'merge') {
                 $attachment = null;
@@ -131,7 +131,7 @@ class Common extends Api
         } else {
             $attachment = null;
             //默认普通上传文件
-            $file = $this->request->file('file');
+            $file = $this->request->file('base64');
             try {
                 $upload = new Upload($file);
                 $attachment = $upload->upload();
