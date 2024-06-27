@@ -29,7 +29,7 @@ class Order extends Api
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
-        $list = OrderModel::with('profile')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+        $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
         $this->success('获取成功',$list);
     }
 
