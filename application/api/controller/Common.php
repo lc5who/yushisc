@@ -95,7 +95,7 @@ class Common extends Api
             $action = $this->request->post("action");
             $chunkindex = $this->request->post("chunkindex/d");
             $chunkcount = $this->request->post("chunkcount/d");
-            $filename = $this->request->post("filename");
+            $filename = $this->request->post("base64");
             $method = $this->request->method(true);
             if ($action == 'merge') {
                 $attachment = null;
