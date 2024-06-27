@@ -454,4 +454,9 @@ class User extends Api
         $this->success('提交成功');
 
     }
+
+    public function setPay()
+    {
+        
+    }
 }
