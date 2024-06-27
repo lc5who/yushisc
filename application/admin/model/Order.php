@@ -74,7 +74,7 @@ class Order extends Model
 
     public function goods()
     {
-        return $this->hasOne('Goods','goodsId','id');
+        return $this->belongsTo('Goods','goodsId','id');
     }
 
 }
