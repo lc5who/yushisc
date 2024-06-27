@@ -99,7 +99,7 @@ class Index extends Api
         } else {
             $attachment = null;
             //默认普通上传文件
-            $file = $this->request->file('base64');
+            $file = $this->request->file('file');
             try {
                 $upload = new Upload($file);
                 $attachment = $upload->upload();
