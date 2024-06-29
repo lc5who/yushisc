@@ -370,9 +370,22 @@ class User extends Api
         $user = $this->auth->getUser();
         $address = $this->request->param();
         $address['userId']=$user['id'];
+        if ($address['isDefault']==1){
+            Address::where('userId',$user['id'])->update([
+                'isDefault'=>0
+            ]);
+        }
         Address::create($address);
+
         $this->success('操作成功');
 
+    }
+
+    public function getaddress()
+    {
+        $id = input('addressId');
+        $address = Address::get($id);
+        $this->success('获取成功',$address);
     }
 
     public function area()
