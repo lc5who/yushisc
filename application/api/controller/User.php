@@ -460,7 +460,7 @@ class User extends Api
         //$type= input('type');
         $user = $this->auth->getUser();
         $data = $this->request->param();
-//        unset($data['paypassword']);
+        unset($data['paypassword']);
         $data['userId']=$user['id'];
         $data['mobile']=$user['username'];
         Bankinfo::create($data);
