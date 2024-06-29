@@ -388,6 +388,26 @@ class User extends Api
         $this->success('获取成功',$address);
     }
 
+//    public function editaddress()
+//    {
+//        $user = $this->auth->getUser();
+//        $address = $this->request->param();
+//        $addressId = $address['addressId'];
+//        if ($address['isDefault']==1){
+//            Address::where('userId',$user['id'])->update([
+//                'isDefault'=>0
+//            ]);
+//        }
+//        Address::create($address);
+//
+//        $this->success('操作成功');
+//    }
+    public function deladdress()
+    {
+        $id = input('addressId');
+        Address::where('id',$id)->delete();
+        $this->success('删除成功');
+    }
     public function area()
    {
         $this->success('获取成功',\config('area'));
