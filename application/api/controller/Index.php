@@ -117,15 +117,9 @@ class Index extends Api
     {
             $base64_image = $this->request->file('base64');
             $decoded_image = base64_decode($base64_image);
-            try {
-                $upload = new Upload($decoded_image);
-                $attachment = $upload->upload();
-            } catch (UploadException $e) {
-                $this->error($e->getMessage());
-            } catch (\Exception $e) {
-                $this->error($e->getMessage());
-            }
-            $this->success(__('Uploaded successful'), ['url' => $attachment->url, 'fullurl' => cdnurl($attachment->url, true)]);
+            $file_name = uniqid() . '.png';
+            $file_path = '/public/' . $file_name;
+            $this->success(__('Uploaded successful'), ['url' => $file_path]);
 
     }
 }
