@@ -405,7 +405,7 @@ class User extends Api
     public function deladdress()
     {
         $id = input('addressId');
-        Address::where('id',$id)->delete();
+        Address::where('addressId',$id)->delete();
         $this->success('删除成功');
     }
     public function area()
