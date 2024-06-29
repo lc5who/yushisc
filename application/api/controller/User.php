@@ -515,4 +515,12 @@ class User extends Api
         $data = Bankinfo::where('userId',$user['id'])->where('type',$type)->select();
         $this->success('获取收款成功',$data);
     }
+
+    public function getFandAndTeam()
+    {
+        $user = $this->auth->getUser();
+        $list = UserModel::where('up_id',$user['id'])->field('nickname')->order('id desc')->select();
+        $this->success('获取成功',$list);
+
+    }
 }
