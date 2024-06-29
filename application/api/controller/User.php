@@ -457,6 +457,13 @@ class User extends Api
 
     public function setPay()
     {
-        
+        //$type= input('type');
+        $user = $this->auth->getUser();
+        $data = $this->request->param();
+        unset($data['paypassword']);
+        $data['userId']=$user['id'];
+        $data['mobile']=$user['username'];
+        Bankinfo::create($data);
+        $this->success('添加成功');
     }
 }
