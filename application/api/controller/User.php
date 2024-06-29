@@ -450,13 +450,27 @@ class User extends Api
     {
         $user = $this->auth->getUser();
         $authImage = $this->request->param('authImage');
-        $upUser = \app\admin\model\User::where('id',$user['up_id'])->find();
-        Sign::create([
-            'user_id'=>$user['id'],
-            'name'=>$user['nickname'],
-            'up_name'=>$upUser['nickname'],
-            'up_id'=>$upUser['id'],
-            'authimage'=>$authImage,
+        if ($user['up_id']>0){
+            $upUser = UserModel::where('id',$user['up_id'])->find();
+            Sign::create([
+                'user_id'=>$user['id'],
+                'name'=>$user['nickname'],
+                'up_name'=>$upUser['nickname'],
+                'up_id'=>$upUser['id'],
+                'authimage'=>$authImage,
+            ]);
+        }else{
+            Sign::create([
+                'user_id'=>$user['id'],
+                'name'=>$user['nickname'],
+                'up_name'=>'0',
+                'up_id'=>0,
+                'authimage'=>$authImage,
+            ]);
+        }
+
+        $user->save([
+            'isAuth'=>'normal'
         ]);
         $this->success('已成功提交');
     }
