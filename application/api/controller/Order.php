@@ -118,6 +118,7 @@ class Order extends Api
 //        ];
         $data = [
             'orderId'=>1,
+            'goodsName'=>'松子观音',
             'goodsLogo'=>'http://141.11.183.159/uploads/20240622/15db8a1d9209c9ca1416ac4d2308004f.png',
             'sellerId'=>77,
             'sellerName'=>'张三',

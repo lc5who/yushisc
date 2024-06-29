@@ -381,13 +381,7 @@ class User extends Api
     }
 
 
-    public function getPay()
-    {
-        $user = $this->auth->getUser();
-        $type = $this->request->param('type');
-        $data = Bankinfo::where('userId',$user['id'])->where('type',$type)->select();
-        $this->success('获取收款成功',$data);
-    }
+
 
     public function market()
     {
@@ -465,5 +459,13 @@ class User extends Api
         $data['mobile']=$user['username'];
         Bankinfo::create($data);
         $this->success('添加成功');
+    }
+
+    public function getPay()
+    {
+        $user = $this->auth->getUser();
+        $type = $this->request->param('type');
+        $data = Bankinfo::where('userId',$user['id'])->where('type',$type)->select();
+        $this->success('获取收款成功',$data);
     }
 }
