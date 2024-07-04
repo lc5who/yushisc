@@ -11,6 +11,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     del_url: 'recharge/del',
                     multi_url: 'recharge/multi',
                     import_url: 'recharge/import',
+                    approve_url: 'recharge/check?state=1',
+                    refuse_url: 'recharge/check?state=2',
                     table: 'recharge',
                 }
             });
@@ -38,7 +40,50 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'createtime', title: __('Createtime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
                         {field: 'updatetime', title: __('Updatetime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
                         {field: 'mark', title: __('Mark'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                        {field: 'buttons', title: __('Operate'), table: table, events: Table.api.events.operate,
+                            buttons: [
+                                {
+                                    name: 'approve',
+                                    title: 'approve',
+                                    text:'通过',
+                                    classname: 'btn btn-xs btn-success btn-ajax',
+                                    icon: 'fa fa-list',
+                                    url: 'recharge/check?state=1', //parent.$(".btn-refresh").trigger("click");
+                                    confirm: '确认通过？',
+                                    success: function () {
+                                        $(".btn-refresh").trigger("click");
+                                    },
+                                    visible:function (row){
+                                        if (row.status!='0'){
+                                            return false
+                                        }else {
+                                            return  true
+                                        }
+                                        return  true
+                                    }
+                                },
+                                {
+                                    name: 'refuse',
+                                    title: 'refuse',
+                                    text:'拒绝',
+                                    classname: 'btn btn-xs btn-danger btn-ajax',
+                                    icon: 'fa fa-list',
+                                    url: 'recharge/check?state=2', //parent.$(".btn-refresh").trigger("click");
+                                    confirm: '确认拒绝?',
+                                    success: function () {
+                                        $(".btn-refresh").trigger("click");
+                                    },
+                                    visible:function (row){
+                                        if (row.status!='0'){
+                                            return false
+                                        }else {
+                                            return  true
+                                        }
+                                        return  true
+                                    }
+                                }
+                            ],
+                            formatter: Table.api.formatter.operate}
                     ]
                 ]
             });

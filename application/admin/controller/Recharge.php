@@ -71,9 +71,25 @@ class Recharge extends Backend
             $this->error(__('No rows were inserted'));
         }
 
-        User::money($params['money'], $params['user_id'], $params['mark']);
+        User::money($params['money'], $params['user_id'], '后台充值'.$params['mark']);
         $this->success();
     }
+
+    public function check()
+    {
+        $id = input('ids');
+        $state = input('state');
+        $rec =\app\admin\model\Recharge::get($id);
+        $rec->save([
+            'status'=>$state,
+        ]);
+        if ($state=='1'){
+            User::money($rec['money'], $rec['user_id'], '充值成功');
+        }
+        $this->success('审核成功');
+    }
+
+
 
     /**
      * 默认生成的控制器所继承的父类中有index/add/edit/del/multi五个基础方法、destroy/restore/recyclebin三个回收站方法

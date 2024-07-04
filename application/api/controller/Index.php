@@ -3,6 +3,8 @@
 namespace app\api\controller;
 
 use app\admin\model\Banner;
+use app\admin\model\Cmbank;
+use app\admin\model\Sign;
 use app\common\controller\Api;
 use app\common\exception\UploadException;
 use app\common\library\Upload;
@@ -32,22 +34,48 @@ class Index extends Api
 
     public function rechargeMethod()
     {
-        $this->success('获取成功',[
+        $user= $this->auth->getUser();
+        $bank = Cmbank::where('typelist','bank')->find();
+        $data = [
+            'online_fee'=>-$user['money'],
             'bank'=>[
-                'bankName'=>'农业银行',
-                'name'=>'张三',
-                'card'=>'1231231231',
-                'status'=>1,
+                'bankName'=>'0',
+                'name'=>'0',
+                'card'=>'0',
+                'status'=>0,
             ],
             'wx'=>[
-                'qrcode'=>'http://141.11.183.159/uploads/20240622/15db8a1d9209c9ca1416ac4d2308004f.png',
-                'status'=>1,
+                'qrcode'=>'0',
+                'status'=>0,
             ],
             'alipay'=>[
-                'qrcode'=>'http://141.11.183.159/uploads/20240622/15db8a1d9209c9ca1416ac4d2308004f.png',
-                'status'=>1,
+                'qrcode'=>'0',
+                'status'=>0,
             ]
-        ]);
+        ];
+        if ($bank){
+            $data['bank']=[
+                'bankName'=>$bank['bankName'],
+                'name'=>$bank['name'],
+                'card'=>$bank['bankName'],
+                'status'=>$bank['openswitch'],
+            ];
+        }
+        $wx = Cmbank::where('typelist','wx')->find();
+        if ($wx){
+            $data['wx']=[
+                'qrcode'=>$wx['qrcodeimage'],
+                'status'=>$wx['openswitch'],
+            ];
+        }
+        $alipay = Cmbank::where('typelist','alipay')->find();
+        if ($alipay){
+            $data['alipay']=[
+                'qrcode'=>$alipay['qrcodeimage'],
+                'status'=>$alipay['openswitch'],
+            ];
+        }
+        $this->success('获取成功',$data);
     }
 
     public function upload()
@@ -113,13 +141,40 @@ class Index extends Api
         }
 
     }
-    public function base64upload ()
-    {
-            $base64_image = $this->request->file('base64');
-            $decoded_image = base64_decode($base64_image);
-            $file_name = uniqid() . '.png';
-            $file_path = '/public/' . $file_name;
-            $this->success(__('Uploaded successful'), ['url' => $file_path]);
+//    public function base64upload ()
+//    {
+//            $base64_image = $this->request->file('base64');
+//            $decoded_image = base64_decode($base64_image);
+//            $file_name = uniqid() . '.png';
+//            $file_path = '/public/' . $file_name;
+//            $this->success(__('Uploaded successful'), ['url' => $file_path]);
+//
+//    }
 
+    public function base64upload(){
+        $url=$this->request->post("base64");
+        $decode_img = base64_decode(str_replace('data:image/png;base64', '', $url));
+        $rootPath =  'uploads/images' . DIRECTORY_SEPARATOR;
+        $subPath = date('Ymd') . "/";
+        $savePath = $rootPath . $subPath;
+        // 如果目录不存在，则创建目录
+        if (!is_dir($savePath)) {
+            mkdir($savePath, 0755, true);
+        }
+
+        $filename = uniqid() . '.png'; // 生成唯一文件名
+        file_put_contents($savePath.$filename, $decode_img);
+
+        $avatar_path = '/uploads/images/'.$subPath.$filename;
+
+//        $user = $this->auth->getUser();
+//        Sign::create([
+//            'user_id'=>$user['id'],
+//            'name'=>$user['nickname'],
+//            'up_name'=>$user['up_name'],
+//            'up_id'=>$user['up_id'],
+//            'authimage'=>$avatar_path,
+//        ]);
+        $this->success('上传成功',[$avatar_path]);
     }
 }

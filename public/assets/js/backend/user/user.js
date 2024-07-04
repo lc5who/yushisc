@@ -10,7 +10,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     edit_url: 'user/user/edit',
                     del_url: 'user/user/del',
                     multi_url: 'user/user/multi',
-                    table: 'user',
+                    table: 'user'
                 }
             });
 
@@ -24,30 +24,31 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'id', title: __('Id'), sortable: true},
-                        // {field: 'group.name', title: __('Group')},
-                        {field: 'username', title: __('Username'), operate: 'LIKE'},
-                        // {field: 'nickname', title: __('Nickname'), operate: 'LIKE'},
-                        // {field: 'email', title: __('Email'), operate: 'LIKE'},
-                        {field: 'mobile', title: __('Mobile'), operate: 'LIKE'},
-                        {field: 'up_name', title: __('推荐人姓名'), operate: 'LIKE'},
-                        {field: 'up_mobile', title: __('推荐人手机号'), operate: 'LIKE'},
-                        {field: 'up_mobile', title: __('今日抢单数'), operate: 'LIKE'},
-                        {field: 'up_mobile', title: __('每日可抢单数'), operate: 'LIKE'},
-                        {field: 'up_mobile', title: __('收款方式'), operate: 'LIKE'},
-                        {field: 'up_mobile', title: __('收获地址'), operate: 'LIKE'},
-                        // {field: 'avatar', title: __('Avatar'), events: Table.api.events.image, formatter: Table.api.formatter.image, operate: false},
-                        // {field: 'level', title: __('Level'), operate: 'BETWEEN', sortable: true},
-                        // {field: 'gender', title: __('Gender'), visible: false, searchList: {1: __('Male'), 0: __('Female')}},
-                        // {field: 'score', title: __('Score'), operate: 'BETWEEN', sortable: true},
-                        // {field: 'successions', title: __('Successions'), visible: false, operate: 'BETWEEN', sortable: true},
-                        // {field: 'maxsuccessions', title: __('Maxsuccessions'), visible: false, operate: 'BETWEEN', sortable: true},
-                        // {field: 'logintime', title: __('Logintime'), formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
-                        // {field: 'loginip', title: __('Loginip'), formatter: Table.api.formatter.search},
-                        {field: 'createtime', title: __('注册时间'), formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
-                        // {field: 'joinip', title: __('Joinip'), formatter: Table.api.formatter.search},
-                        // {field: 'status', title: __('Status'), formatter: Table.api.formatter.status, searchList: {normal: __('Normal'), hidden: __('Hidden')}},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                        {field: 'id', title: 'Id', sortable: true},
+                        // {field: 'group.name', title: 'Group'},
+                        {field: 'nickname', title: '用户姓名', operate: 'LIKE'},
+                        // {field: 'email', title: 'Email', operate: 'LIKE'},
+                        {field: 'mobile', title: '手机号', operate: 'LIKE'},
+                        {field: 'money', title: '余额'},
+                        {field: 'up_name', title: '推荐人姓名', operate: 'LIKE'},
+                        {field: 'up_mobile', title: '推荐人手机号'},
+                        {field: 'today_buy', title: '今日抢单数', formatter: Table.api.formatter.flag},
+                        {field: 'left_buy', title: '每日可抢单数', formatter: Table.api.formatter.flag},
+                        {field: 'isAuth', title: '是否实名', formatter: Table.api.formatter.flag, searchList: {"normal":"是","no":"否"}},
+                        {field: 'isBank', title: '收款方式', formatter: Table.api.formatter.flag, searchList: {"0":"否","1":"是"}},
+                        {field: 'isAdd', title: '收获地址', formatter: Table.api.formatter.flag, searchList: {"0":"否","1":"是"}},
+                        // {field: 'avatar', title: 'Avatar', events: Table.api.events.image, formatter: Table.api.formatter.image, operate: false},
+                        // {field: 'level', title: 'Level', operate: 'BETWEEN', sortable: true},
+                        // {field: 'gender', title: 'Gender', visible: false, searchList: {1: 'Male', 0: 'Female'}},
+                        // {field: 'score', title: 'Score', operate: 'BETWEEN', sortable: true},
+                        // {field: 'successions', title: 'Successions', visible: false, operate: 'BETWEEN', sortable: true},
+                        // {field: 'maxsuccessions', title: 'Maxsuccessions', visible: false, operate: 'BETWEEN', sortable: true},
+                        // {field: 'logintime', title: 'Logintime', formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
+                        // {field: 'loginip', title: 'Loginip', formatter: Table.api.formatter.search},
+                        {field: 'createtime', title: '注册时间', formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
+                        // {field: 'joinip', title: 'Joinip', formatter: Table.api.formatter.search},
+                        // {field: 'status', title: 'Status', formatter: Table.api.formatter.status, searchList: {normal: 'Normal', hidden: 'Hidden'}},
+                        {field: 'operate', title: 'Operate', table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
             });

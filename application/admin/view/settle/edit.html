@@ -1,0 +1,51 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('User_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_id" data-rule="required" data-source="user/user/index" data-field="nickname" class="form-control selectpage" name="row[user_id]" type="text" value="{$row.user_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('User_mobile')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_mobile" data-rule="required" class="form-control" name="row[user_mobile]" type="text" value="{$row.user_mobile|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('User_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-user_name" data-rule="required" class="form-control" name="row[user_name]" type="text" value="{$row.user_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Buy_amount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-buy_amount" data-rule="required" class="form-control" step="0.01" name="row[buy_amount]" type="number" value="{$row.buy_amount|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Online_amount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-online_amount" data-rule="required" class="form-control" step="0.01" name="row[online_amount]" type="number" value="{$row.online_amount|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Pay')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-pay" data-rule="required" class="form-control" step="0.01" name="row[pay]" type="number" value="{$row.pay|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Income')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-income" data-rule="required" class="form-control" step="0.01" name="row[income]" type="number" value="{$row.income|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('OK')}</button>
+        </div>
+    </div>
+</form>

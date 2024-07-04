@@ -11,6 +11,7 @@ use app\common\library\Ems;
 use app\common\library\Sms;
 use app\common\model\MoneyLog;
 use fast\Random;
+use tests\thinkphp\library\traits\think\InstanceTestSon;
 use think\Config;
 use think\console\command\optimize\Schema;
 use think\Validate;
@@ -504,16 +505,39 @@ class User extends Api
         unset($data['paypassword']);
         $data['userId']=$user['id'];
         $data['mobile']=$user['username'];
-        Bankinfo::create($data);
-        $this->success('添加成功');
+        if (isset($data['id'])){
+            $bi = Bankinfo::get($data['id'])->find();
+            if ($bi){
+                unset($data['id']);
+                $bi->save($data);
+                $this->success('修改成功');
+            }else{
+                $this->error('无此信息');
+            }
+        }else{
+            Bankinfo::create($data);
+            $this->success('添加成功');
+        }
     }
 
     public function getPay()
     {
         $user = $this->auth->getUser();
         $type = $this->request->param('type');
-        $data = Bankinfo::where('userId',$user['id'])->where('type',$type)->select();
-        $this->success('获取收款成功',$data);
+        if ($type==0){
+            $data = Bankinfo::where('userId',$user['id'])->where('type',$type)->select();
+            $this->success('获取收款成功',$data);
+        }else{
+            $data = Bankinfo::where('userId',$user['id'])->where('type','>','0')->select();
+            $this->success('获取收款成功',$data);
+        }
+    }
+
+    public function detelePay()
+    {
+        $id =input('id');
+        Bankinfo::where('id',$id)->delete();
+        $this->success('删除成功');
     }
 
     public function getFandAndTeam()

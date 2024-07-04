@@ -11,6 +11,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     del_url: 'goods/del',
                     multi_url: 'goods/multi',
                     import_url: 'goods/import',
+                    offline_url:'goods/offline',
+                    online_url:'goods/online',
                     table: 'goods',
                 }
             });
@@ -28,20 +30,48 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     [
                         {checkbox: true},
                         {field: 'id', title: __('Id')},
-                        {field: 'goodsName', title: __('Goodsname'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
                         {field: 'goodsimage', title: __('Goodsimage'), operate: false, events: Table.api.events.image, formatter: Table.api.formatter.image},
                         {field: 'goodsSn', title: __('Goodssn'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
-                        {field: 'orderSn', title: __('Ordersn'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
-                        {field: 'goodsPrice', title: __('Goodsprice'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
+                        {field: 'goodsName', title: __('Goodsname'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
+                        // {field: 'orderSn', title: __('Ordersn'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
+                        {field: 'goodsPrice', title: __('Goodsprice')},
                         {field: 'onlinetime', title: __('Onlinetime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
                         {field: 'mobile', title: __('Mobile'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
                         {field: 'username', title: __('Username'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
-                        {field: 'buyusername', title: __('Buyusername'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
                         {field: 'buymobile', title: __('Buymobile'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
+                        {field: 'buyusername', title: __('Buyusername'), operate: 'LIKE', table: table, class: 'autocontent', formatter: Table.api.formatter.content},
                         {field: 'status', title: __('Status'), searchList: {"0":__('Status 0'),"1":__('Status 1'),"2":__('Status 2'),"3":__('Status 3')}, formatter: Table.api.formatter.status},
                         {field: 'createtime', title: __('Createtime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false, formatter: Table.api.formatter.datetime},
-                        {field: 'onlineStatus', title: __('Onlinestatus')},
-                        {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                        {field: 'onlineStatus', title: __('Onlinestatus'), searchList: {"0":'已下架',"1":'已上架'}, formatter: Table.api.formatter.status},
+                        // {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
+                        {field: 'buttons', title: __('Operate'), table: table, events: Table.api.events.operate,
+                            buttons: [
+                                {
+                                    name: 'offline',
+                                    title: 'offline',
+                                    text:'下架商品',
+                                    classname: 'btn btn-xs btn-danger btn-ajax',
+                                    icon: 'fa fa-list',
+                                    url: 'goods/offline', //parent.$(".btn-refresh").trigger("click");
+                                    confirm: '确认下架',
+                                    success: function () {
+                                        $(".btn-refresh").trigger("click");
+                                    }
+                                },
+                                {
+                                    name: 'online',
+                                    title: 'online',
+                                    text:'上架商品',
+                                    classname: 'btn btn-xs btn-success btn-ajax',
+                                    icon: 'fa fa-list',
+                                    url: 'goods/online', //parent.$(".btn-refresh").trigger("click");
+                                    confirm: '确认上架',
+                                    success: function () {
+                                        $(".btn-refresh").trigger("click");
+                                    }
+                                }
+                            ],
+                            formatter: Table.api.formatter.buttons}
                     ]
                 ]
             });

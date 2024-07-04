@@ -4,6 +4,7 @@ namespace app\api\controller;
 
 use app\admin\model\Bankinfo;
 use app\admin\model\Goods;
+use app\admin\model\Settle;
 use app\common\controller\Api;
 use \app\admin\model\Order as OrderModel;
 use \app\admin\model\User as UserModel;
@@ -106,29 +107,25 @@ class Order extends Api
     public function confirmDetail()
     {
         $orderId = input('orderId');
-//        $order= OrderModel::get($orderId);
-//        $goods = Goods::get($order['goodsId']);
-//        $seller = UserModel::get('sellUserId');
-//        $data = [
-//            'goodsName'=>$goods['goodsName'],
-//            'name'=>$goods['goodsName'],
-//            'sellerId'=>$seller['id'],
-//            'sellerMobile'=>$seller['mobile'],
-//            'price'=>$order['price'],
-//        ];
+        $order= OrderModel::get($orderId);
+        $goods = Goods::get($order['goodsId']);
+        $seller = UserModel::get('sellUserId');
+        $buyer = UserModel::get('buyUserId');
+        $today = \fast\Date::unixtime('day');
+        $settle = Settle::where('user_id',$seller['id'])->where('createtime','>=',$today)->find();
         $data = [
             'orderId'=>1,
-            'goodsName'=>'松子观音',
-            'goodsLogo'=>'http://141.11.183.159/uploads/20240622/15db8a1d9209c9ca1416ac4d2308004f.png',
-            'sellerId'=>77,
-            'sellerName'=>'张三',
-            'sellerMobile'=>13398765432,
-            'price'=>10000,
-            'totalReceive'=>3667.00,
-            'buyerName'=>'李四',
-            'buyerMobile'=>13109876543,
-            'pay'=>3367.00,
-            'reception'=>'http://141.11.183.159/uploads/20240622/15db8a1d9209c9ca1416ac4d2308004f.png',
+            'goodsName'=>$goods['goodsName'],
+            'goodsLogo'=>$goods['goodsImage'],
+            'sellerId'=>$seller['id'],
+            'sellerName'=>$seller['nickname'],
+            'sellerMobile'=>$seller['username'],
+            'price'=>$order['price'],
+            'totalReceive'=>$settle['income'],
+            'buyerName'=>$buyer['nickname'],
+            'buyerMobile'=>$buyer['username'],
+            'pay'=>$order['payMoney'],
+            'reception'=>$order['payPic'],
         ];
         $this->success('ok',$data);
     }
@@ -142,6 +139,22 @@ class Order extends Api
             'endTime'=>time(),
             'status'=>'4',
         ]);
+
+        //确认订单之后做的事
+        //1.新增商品,提价
+        $goods = Goods::get($order['goodsId']);
+        $newGoods = [
+            'goodsName'=>$goods['goodsName'],
+            'goodsimage'=>$goods['goodsimage'],
+            'goodsSn'=>getSn(),
+            'goodsPrice'=>$goods['goodsPrice']*1.05,
+            'seller_id'=>$goods['buyer_id'],
+            'mobile'=>$goods['buymobile'],
+            'username'=>$goods['buyusername'],
+            'status'=>'0',
+            'onlineStatus'=>0,
+        ];
+        Goods::create($newGoods);
         $this->success('确认成功');
     }
 }
