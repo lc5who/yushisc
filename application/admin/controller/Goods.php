@@ -29,7 +29,7 @@ class Goods extends Backend
     public function offline()
     {
         $ids = $this->request->param('ids');
-        \app\admin\model\Goods::where('id',$ids)->update(['onlineStatus'=>'0']);
+        \app\admin\model\Goods::where('id',$ids)->update(['onlineStatus'=>'0','status'=>'0']);
         $this->success('下架成功');
     }
 
@@ -38,7 +38,6 @@ class Goods extends Backend
         $ids = $this->request->param('ids');
         $good=GoodsModel::get($ids);
         if (!$good) $this->error('无此商品');
-//            ->update(['onlineStatus'=>'1']);
         $w =date('w');
         $online_fee = 0;
         $now =time();
@@ -52,7 +51,8 @@ class Goods extends Backend
         $good->save([
             'onlinetime'=>$now,
             'onlinePrice'=>$online_fee,
-            'onlineStatus'=>'1'
+            'onlineStatus'=>'1',
+            'status'=>'1'
         ]);
         \app\common\model\User::money(-$online_fee,$good['seller_id'],"商品编号:{$good['goodsSn']},上架费{$online_fee},上架时间{$now_str}");
         $this->success('上架成功');

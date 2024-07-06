@@ -52,7 +52,7 @@ class Cangku extends Backend
         $goodsSn = getSn();
         \app\admin\model\Goods::create([
             'goodsName'=>$row['name'],
-            'goodsLogo'=>$row['mainimage'],
+            'goodsimage'=>$row['mainimage'],
             'goodsSn'=>$goodsSn,
             'goodsPrice'=>$row['price'],
             'mobile'=>$user['mobile'],

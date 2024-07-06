@@ -76,9 +76,101 @@ class Settle extends Backend
             }
             \app\admin\model\Settle::create($res[$k]);
         }
+
+        //获取要付款的
+        $buy=[];
+        $sell=[];
+        foreach ($res as $k=>$v){
+            if ($v['income']==0){
+                $buy[$v['user_id']]=$v['pay'];
+            }
+            if ($v['pay']==0){
+                $sell[$v['user_id']]=$v['income'];
+            }
+        }
+        //进行匹配
+        arsort($buy);
+        arsort($sell);
+        $sellerIds = array_keys($sell);
+        $buyerIds = array_keys($buy);
+        $sellerP =array_values($sell);
+        $buyerP =array_values($buy);
+
+//        dump($sellerP);
+//        dump($sell);
+
+        //买家要支付的多
+        if (count($buyerP)>=count($sellerP)){
+
+            for ($j=0;$j<count($sellerP);$j++){
+                if ($sellerP[$j]==0) continue;
+                $payInfo=[
+                    'seller_id'=>$sellerIds[$j],
+                    'buyer_id'=>0,
+                    'money'=>0.00
+                ];
+                for ($i=0;$i<count($buyerP);$i++){
+                    if ($buyerP[$i]==0) continue;
+                    if ($sellerP[$j]>=$buyerP[$i]){
+                        $sellerP[$j]=$sellerP[$j]-$buyerP[$i];
+
+                        $payInfo['buyer_id']=$buyerIds[$i];
+                        $payInfo['money']=$buyerP[$i];
+                        \app\admin\model\Paylist::create($payInfo);
+                        $buyerP[$i]=0;
+                    }else{
+
+                        $buyerP[$i]=$buyerP[$i]-$sellerP[$j];
+                        $payInfo['buyer_id']=$buyerIds[$i];
+                        $payInfo['money']=$buyerP[$i];
+                        \app\admin\model\Paylist::create($payInfo);
+                        $sellerP[$j]=0;
+                        break;
+                    }
+                }
+            }
+        }else{
+            //卖家多
+            for ($j=0;$j<count($buyerP);$j++){
+                if ($buyerP[$j]==0) continue;
+                $payInfo=[
+                    'seller_id'=>0,
+                    'buyer_id'=>$buyerIds[$j],
+                    'money'=>0.00
+                ];
+                for ($i=0;$i<count($sellerP);$i++){
+                    if ($sellerP[$i]==0) continue;
+                    if ($buyerP[$j]>=$sellerP[$i]){
+                        $buyerP[$j]=$buyerP[$j]-$sellerP[$i];
+
+                        $payInfo['seller_id']=$sellerIds[$i];
+                        $payInfo['money']=$sellerP[$i];
+                        \app\admin\model\Paylist::create($payInfo);
+                        $sellerP[$i]=0;
+                    }else{
+
+                        $sellerP[$i]=$sellerP[$i]-$buyerP[$j];
+                        $payInfo['seller_id']=$sellerIds[$i];
+                        $payInfo['money']=$buyerP[$j];
+                        \app\admin\model\Paylist::create($payInfo);
+                        $buyerP[$j]=0;
+                        break;
+                    }
+                }
+            }
+
+        }
+
         $this->success('汇算成功','/master.php/settle?addtabs=1',$res);
     }
 
+    public function isSettle()
+    {
+        $today = \fast\Date::unixtime('day');
+        $paylist = \app\admin\model\Paylist::where('createtime','>',$today)->select();
+        if ($paylist) $this->error('今日已汇算');
+        $this->success('ok');
+    }
     /**
      * 默认生成的控制器所继承的父类中有index/add/edit/del/multi五个基础方法、destroy/restore/recyclebin三个回收站方法
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
