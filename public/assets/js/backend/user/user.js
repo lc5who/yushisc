@@ -37,6 +37,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'isAuth', title: '是否实名', formatter: Table.api.formatter.flag, searchList: {"normal":"是","no":"否"}},
                         {field: 'isBank', title: '收款方式', formatter: Table.api.formatter.flag, searchList: {"0":"否","1":"是"}},
                         {field: 'isAdd', title: '收获地址', formatter: Table.api.formatter.flag, searchList: {"0":"否","1":"是"}},
+                        {field: 'isVip', title: 'Vip', formatter: Table.api.formatter.flag, searchList: {"0":"no","1":"Vip"}},
                         // {field: 'avatar', title: 'Avatar', events: Table.api.events.image, formatter: Table.api.formatter.image, operate: false},
                         // {field: 'level', title: 'Level', operate: 'BETWEEN', sortable: true},
                         // {field: 'gender', title: 'Gender', visible: false, searchList: {1: 'Male', 0: 'Female'}},

@@ -58,6 +58,21 @@ class Goods extends Backend
         $this->success('上架成功');
     }
 
+    public function clear()
+    {
+        $ids = $this->request->param('ids');
+        $good=GoodsModel::get($ids);
+        if (!$good) $this->error('无此商品');
+        $good->save([
+            'buyer_id'=>0,
+            'status'=>'1',
+            'status'=>'1',
+            'buyusername'=>'',
+            'buymobile'=>'',
+        ]);
+        $this->success('清除成功');
+    }
+
     /**
      * 默认生成的控制器所继承的父类中有index/add/edit/del/multi五个基础方法、destroy/restore/recyclebin三个回收站方法
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑

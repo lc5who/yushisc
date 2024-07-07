@@ -42,8 +42,11 @@ class Sign extends Model
         $list = $this->getStatusList();
         return isset($list[$value]) ? $list[$value] : '';
     }
-
-
-
-
+    public function setStatusAttr($value,$data)
+    {
+        if ($value=='1'){
+            User::where('id',$data['user_id'])->update(['isAuth'=>'normal']);
+        }
+        return $value;
+    }
 }

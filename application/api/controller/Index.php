@@ -175,6 +175,36 @@ class Index extends Api
 //            'up_id'=>$user['up_id'],
 //            'authimage'=>$avatar_path,
 //        ]);
-        $this->success('上传成功',[$avatar_path]);
+        $this->success('上传成功',['url'=>$avatar_path]);
+    }
+
+    public function setuserbuy()
+    {
+        \app\admin\model\User::where('id','>','0')->update([
+            'today_buy'=>0,
+            'left_buy'=>\config('site.jyrkqds')
+        ]);
+        echo  'ok';
+    }
+
+    public function reward()
+    {
+        $today = \fast\Date::unixtime('day');
+        $users = \app\admin\model\User::where('today_buy','>',0)->select();
+        foreach ($users as $user) {
+            $amount = \app\admin\model\Order::where('buyUserId',$user['id'])->where('createtime','>',$today)->where('status','>=','3')->sum('price');
+            if ($amount>=70000){
+                \app\common\model\User::money(288,$user['id'],'抢购金额超70000奖励');
+                continue;
+            }
+            if ($amount>=50000){
+                \app\common\model\User::money(188,$user['id'],'抢购金额超50000奖励');
+                continue;
+            }
+            if ($amount>=20000){
+                \app\common\model\User::money(88,$user['id'],'抢购金额超20000奖励');
+                continue;
+            }
+        }
     }
 }

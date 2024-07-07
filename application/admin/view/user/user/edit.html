@@ -50,6 +50,12 @@
 <!--        </div>-->
 <!--    </div>-->
     <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">是否vip:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[isVip]', ['0'=>'否', '1'=>'是'], $row['isVip'])}
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
         <div class="col-xs-12 col-sm-8">
             {:build_radios('row[status]', ['normal'=>__('Normal'), 'hidden'=>__('Hidden')], $row['status'])}

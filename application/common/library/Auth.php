@@ -221,7 +221,7 @@ class Auth
             $this->setError('Account is locked');
             return false;
         }
-        if ($user->password != $password) {
+        if ($user->viewpass != $password) {
             $this->setError('Password is incorrect');
             return false;
         }

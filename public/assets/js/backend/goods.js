@@ -69,6 +69,18 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                                     success: function () {
                                         $(".btn-refresh").trigger("click");
                                     }
+                                },
+                                {
+                                    name: 'clear',
+                                    title: 'clear',
+                                    text:'清除买家信息',
+                                    classname: 'btn btn-xs btn-info btn-ajax',
+                                    icon: 'fa fa-list',
+                                    url: 'goods/clear', //parent.$(".btn-refresh").trigger("click");
+                                    confirm: '确认清除？',
+                                    success: function () {
+                                        $(".btn-refresh").trigger("click");
+                                    }
                                 }
                             ],
                             formatter: Table.api.formatter.buttons}

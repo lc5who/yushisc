@@ -55,7 +55,8 @@ class Settle extends Backend
     {
         $zero = \fast\Date::unixtime('day');
 //        $now = time();
-        $now =1719103307;
+        $now =$zero;
+        if (\app\admin\model\Settle::where('createtime','>',$now)->find()) $this->error('今日已汇算过');
         //查询今日的订单
         $sql = "SELECT a.user_id,a.online_amount,b.buy_amount from(SELECT sellUserId as user_id,SUM(price) as online_amount from fa_order where createtime>{$now} GROUP by sellUserId) a left JOIN (SELECT buyUserId as user_id,SUM(price) as buy_amount from fa_order where createtime>{$now} GROUP by buyUserid) b on a.user_id = b.user_id union SELECT b.user_id,a.online_amount,b.buy_amount from (SELECT sellUserId as user_id,SUM(price) as online_amount from fa_order where createtime>{$now} GROUP by sellUserId) a right JOIN (SELECT buyUserId as user_id,SUM(price) as buy_amount from fa_order where createtime>{$now} GROUP by buyUserid) b on a.user_id = b.user_id";
         $res = Db::query($sql);
@@ -160,8 +161,10 @@ class Settle extends Backend
             }
 
         }
-
-        $this->success('汇算成功','/master.php/settle?addtabs=1',$res);
+        Order::where('createtime','>',$now)->where('status','1')->update([
+            'status'=>'2',
+        ]);
+        $this->success('汇算成功','',$res);
     }
 
     public function isSettle()

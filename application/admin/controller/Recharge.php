@@ -85,7 +85,19 @@ class Recharge extends Backend
         ]);
         if ($state=='1'){
             User::money($rec['money'], $rec['user_id'], '充值成功');
+            $user = User::get($rec['user_id']);
+            $online_fee = \app\admin\model\Goods::where('seller_id',$user['id'])->where('status','0')->sum('onlinePrice');
+            if ($user['money']>=$online_fee){
+                $now= time();
+                User::money(-$online_fee, $rec['user_id'], '支出上架费'.$online_fee);
+                \app\admin\model\Goods::where('seller_id',$user['id'])->where('status','0')->update([
+                    'onlinetime'=>$now,
+                    'onlineStatus'=>'1',
+                    'status'=>'1'
+                ]);
+            }
         }
+//        if ($user['money'])
         $this->success('审核成功');
     }
 

@@ -57,5 +57,14 @@ class Paylist extends Model
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
 
+    public function Buyer()
+    {
+        return $this->belongsTo('User','buyer_id');
+    }
+    public function Seller()
+    {
+        return $this->belongsTo('User','seller_id');
+    }
+
 
 }

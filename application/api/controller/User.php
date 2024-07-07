@@ -6,6 +6,7 @@ use app\admin\model\Address;
 use app\admin\model\Bankinfo;
 use app\admin\model\Recharge;
 use app\admin\model\Sign;
+use app\admin\model\Withdraw;
 use app\common\controller\Api;
 use app\common\library\Ems;
 use app\common\library\Sms;
@@ -14,6 +15,7 @@ use fast\Random;
 use tests\thinkphp\library\traits\think\InstanceTestSon;
 use think\Config;
 use think\console\command\optimize\Schema;
+use think\Db;
 use think\Validate;
 use \app\admin\model\User as UserModel;
 /**
@@ -142,6 +144,15 @@ class User extends Api
         $ret = $this->auth->register($username, $password, $email, $mobile, []);
         if ($ret) {
             $data = ['userinfo' => $this->auth->getUserinfo()];
+            $cm  = Db::name('commission')->where('user_id',$data['up_id'])->where('sub_id',$data['id'])->find();
+            if (!$cm){
+                Db::name('commission')->insert([
+                    'user_id'=>$data['up_id'],
+                    'sub_id'=>$data['id'],
+                    'username'=>$data['username'],
+                    'nickname'=>$data['nickname'],
+                ]);
+            }
             $this->success(__('Sign up successful'), $data);
         } else {
             $this->error($this->auth->getError());
@@ -431,11 +442,77 @@ class User extends Api
         $bid = $this->request->param('id');
         $money = $this->request->param('money');
         $paypassword = $this->request->param('111111');
-        if ($paypassword != $user['paypassword']) $this->error('支付密码错误');
-        if ($money > $user['money']) $this->error('余额不足');
+//        if ($paypassword != $user['paypassword']) $this->error('支付密码错误');
+        if ($money > $user['score']) $this->error('可用佣金不足');
         $bank = Bankinfo::get($bid);
         if (!$bank) $this->error('请选择收款方式');
+        \app\common\model\User::score(-$money,$user['id'],'申请提现');
+        Withdraw::create([
+            'userId'=>$user['id'],
+            'orderNo'=>'TX'.getSn(),
+            'currency'=>'yue',
+            'payid'=>$bank['id'],
+            'money'=>$money,
+            'status'=>0,
+        ]);
+        $this->success('申请提现成功,等待审核');
         
+    }
+
+    public function drawinfo()
+    {
+        $user = $this->auth->getUser();
+        $bankInfo= Bankinfo::where('userId',$user['id'])->order('type asc')->select();
+
+        $bankData = [
+            'bank'=>[
+                'id'=>0,
+                'bankName'=>0,
+                'name'=>0,
+                'card'=>0,
+                'status'=>0,
+            ],
+            'wx'=>[
+                'id'=>0,
+                'qrcode'=>'',
+                'status'=>0,
+            ],
+            'alipay'=>[
+                'id'=>0,
+                'qrcode'=>'',
+                'status'=>0,
+            ]
+        ];
+        foreach ($bankInfo as $bf){
+            if ($bf['type']==0){
+                $bankData['bank']=[
+                    'id'=>$bf['id'],
+                    'bankName'=>$bf['bankName'],
+                    'name'=>$bf['name'],
+                    'card'=>$bf['cardNum'],
+                    'status'=>1,
+                ];
+            }
+            if ($bf['type']==1){
+                $bankData['wx']=[
+                    'id'=>$bf['id'],
+                    'qrcode'=>$bf['img'],
+                    'status'=>1,
+                ];
+            }
+            if ($bf['type']==2){
+                $bankData['alipay']=[
+                    'id'=>$bf['id'],
+                    'qrcode'=>$bf['img'],
+                    'status'=>1,
+                ];
+            }
+        }
+        $data = [
+            'canDraw'=>$user['score'],
+            'bankinfo'=>$bankData,
+        ];
+        $this->success('ok',$data);
     }
 
 
@@ -450,6 +527,8 @@ class User extends Api
     public function realname()
     {
         $user = $this->auth->getUser();
+        $userSign= Sign::where('user_id',$user['id'])->where('status','0')->find();
+        if ($userSign) $this->error('你已提交签名认证');
         $authImage = $this->request->param('authImage');
         if ($user['up_id']>0){
             $upUser = UserModel::where('id',$user['up_id'])->find();
@@ -470,9 +549,9 @@ class User extends Api
             ]);
         }
 
-        $user->save([
-            'isAuth'=>'normal'
-        ]);
+//        $user->save([
+//            'isAuth'=>'normal'
+//        ]);
         $this->success('已成功提交');
     }
 
@@ -506,7 +585,7 @@ class User extends Api
         $data['userId']=$user['id'];
         $data['mobile']=$user['username'];
         if (isset($data['id'])){
-            $bi = Bankinfo::get($data['id'])->find();
+            $bi = Bankinfo::get($data['id']);
             if ($bi){
                 unset($data['id']);
                 $bi->save($data);
@@ -515,6 +594,8 @@ class User extends Api
                 $this->error('无此信息');
             }
         }else{
+            $bb =Bankinfo::where('userId',$user['id'])->where('type',$data['type'])->find();
+            if ($bb) $this->error('同个收款方式只能拥有一个收款信息');
             Bankinfo::create($data);
             $this->success('添加成功');
         }
@@ -543,8 +624,7 @@ class User extends Api
     public function getFandAndTeam()
     {
         $user = $this->auth->getUser();
-        $list = UserModel::where('up_id',$user['id'])->field('nickname')->order('id desc')->select();
+        $list = Db::name('commission')->where('user_id',$user['id'])->field('username,nickname,money')->order('id desc')->select();
         $this->success('获取成功',$list);
-
     }
 }

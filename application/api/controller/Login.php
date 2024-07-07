@@ -5,6 +5,7 @@ namespace app\api\controller;
 use app\admin\model\Goods;
 use app\common\controller\Api;
 use app\common\library\Sms;
+use think\Db;
 use think\Validate;
 use \app\admin\model\User;
 
@@ -81,6 +82,15 @@ class Login extends Api
         if ($ret) {
             $data = $this->auth->getUser();
             $data['token']=$this->auth->getUserinfo()['token'];
+            $cm  = Db::name('commission')->where('user_id',$data['up_id'])->where('sub_id',$data['id'])->find();
+            if (!$cm){
+                Db::name('commission')->insert([
+                    'user_id'=>$data['up_id'],
+                    'sub_id'=>$data['id'],
+                    'username'=>$data['username'],
+                    'nickname'=>$data['nickname'],
+                ]);
+            }
             $this->success(__('Sign up successful'), $data);
         } else {
             $this->error($this->auth->getError());

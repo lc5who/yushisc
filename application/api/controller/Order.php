@@ -31,7 +31,14 @@ class Order extends Api
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
-        $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+
+
+        if ($status=='3'){
+            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status','in','3,4')->order('id desc')->paginate($limit);
+        }else{
+            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+        }
+
         $this->success('获取成功',$list);
     }
 
@@ -40,12 +47,19 @@ class Order extends Api
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
+        if ($status<2){
+            $list = Goods::where('seller_id',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+            $this->success('获取成功',$list);
+        }
+        if ($status==3){
+            $status=2;
+        }
         $list = OrderModel::with('goods')->where('sellUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
         $this->success('获取成功',$list);
 //        if ($status!=-1){
 //
 //        }else{
-//
+
 //            $list = Goods::where('seller_id',$user['id'])->where('status','0')->order('id desc')->paginate($limit);
 //            $this->success('获取成功',$list);
 //        }
@@ -61,7 +75,7 @@ class Order extends Api
         if ($order['status']!='2') $this->error('当前订单不可支付');
         $today = \fast\Date::unixtime('day');
         $paylist = Paylist::where('buyer_id',$user['id'])->where('createtime','>',$today)->where('status','0')->find();
-//        dump($paylist);
+
         if (!$paylist) $this->error('无需支付');
         $bankInfo = Bankinfo::where('userId',$paylist['seller_id'])->select();
         $payData = [];
@@ -123,7 +137,7 @@ class Order extends Api
         $payPic = input('payPic');
         $payListId = input('payListId');
         $payInfo = Paylist::get($payListId);
-//        $order= OrderModel::get($orderId);
+        $order= OrderModel::get($orderId);
         if (!$payInfo) $this->error('无此订单');
         if ($payInfo['status']!='0') $this->error('当前订单不可支付');
         $payInfo->save([
@@ -132,6 +146,11 @@ class Order extends Api
             'paytime'=>time(),
             'status'=>'1',
         ]);
+        if ($order){
+            $order->save([
+                'status'=>'3'
+            ]);
+        }
         $this->success('提交成功，等待卖家确认');
     }
 
@@ -172,6 +191,7 @@ class Order extends Api
             'totalReceive'=>$total,
             'list'=>$list,
         ];
+
         $this->success('ok',$data);
     }
     public function confirmOrder()
@@ -188,7 +208,8 @@ class Order extends Api
 //        if (!$order) $this->error('无此订单');
 //        if ($order['status']!='3') $this->error('当前订单不可确认');
 
-        $orders= OrderModel::where('sellUserId',$seller['id'])->where('status',3)->where('createtime','>',$today)->select();
+        $orders= OrderModel::where('sellUserId',$seller['id'])->where('status','in','2,3')->where('createtime','>',$today)->select();
+        $w =date('w');
         foreach ($orders as $k=>$order){
             $order->save([
                 'endTime'=>time(),
@@ -196,7 +217,16 @@ class Order extends Api
             ]);
             //确认订单之后做的事
             //1.新增商品,提价
+
+
+
             $goods = Goods::get($order['goodsId']);
+            if($w==5){
+                $online_fee= $goods['goodsPrice']*1.05*config('site.zwsjf')/100;
+            }
+            else{
+                $online_fee=$goods['goodsPrice']*1.05*config('site.ydssjf')/100;
+            }
             $newGoods = [
                 'goodsName'=>$goods['goodsName'],
                 'goodsimage'=>$goods['goodsimage'],
@@ -207,6 +237,7 @@ class Order extends Api
                 'username'=>$goods['buyusername'],
                 'status'=>'0',
                 'onlineStatus'=>0,
+                'onlinePrice'=>$online_fee,
             ];
             Goods::create($newGoods);
         }
