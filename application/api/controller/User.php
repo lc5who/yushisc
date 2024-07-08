@@ -527,7 +527,7 @@ class User extends Api
     public function realname()
     {
         $user = $this->auth->getUser();
-        $userSign= Sign::where('user_id',$user['id'])->where('status','0')->find();
+        $userSign= Sign::where('user_id',$user['id'])->find();
         if ($userSign) $this->error('你已提交签名认证');
         $authImage = $this->request->param('authImage');
         if ($user['up_id']>0){
