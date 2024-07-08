@@ -67,6 +67,7 @@ class Qg extends Api
         $goods = Goods::get($id);
         if (!$goods) $this->error('无此商品');
         if ($goods['buyer_id']>0) $this->error('此商品被人抢走啦');
+        if ($goods['seller_id']==$user['id']) $this->error('不能抢购自己的商品');
         $orderSn = 'QG'.getSn();
         $goods->save([
             'orderSn'=>$orderSn,
@@ -102,7 +103,7 @@ class Qg extends Api
         $user =$this->auth->getUser();
         $limit = $this->request->param('limit',20);
 //        $page = $this->request->param('page',1);
-        $list = Goods::where('status','1')->where('onlineStatus','1')->paginate($limit);
+        $list = Goods::where('status','1')->where('onlineStatus','1')->where('seller_id','!=',$user['id'])->paginate($limit);
         $ordercount = Goods::where('buyer_id',$user['id'])->where('status','>','1')->count();
         $orderprice = Goods::where('buyer_id',$user['id'])->where('status','>','1')->sum('goodsPrice');
         $result = ['info' => ['ordercount'=>$ordercount,'orderprice'=>$orderprice], 'list'=>$list];
