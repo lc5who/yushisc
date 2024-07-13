@@ -44,5 +44,8 @@ class Withdraw extends Model
         return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
 
-
+    public function Bankinfo()
+    {
+        return $this->belongsTo('Bankinfo','payid');
+    }
 }

@@ -31,7 +31,7 @@ class Settle extends Backend
     public function index()
     {
 //                $now = time();
-        $now =1719103307;
+        $now =\fast\Date::unixtime('day');
         //设置过滤方法
         $this->request->filter(['strip_tags', 'trim']);
         if (false === $this->request->isAjax()) {
@@ -123,7 +123,7 @@ class Settle extends Backend
 
                         $buyerP[$i]=$buyerP[$i]-$sellerP[$j];
                         $payInfo['buyer_id']=$buyerIds[$i];
-                        $payInfo['money']=$buyerP[$i];
+                        $payInfo['money']=$sellerP[$j];
                         \app\admin\model\Paylist::create($payInfo);
                         $sellerP[$j]=0;
                         break;
@@ -164,6 +164,44 @@ class Settle extends Backend
         Order::where('createtime','>',$now)->where('status','1')->update([
             'status'=>'2',
         ]);
+        
+        $today = \fast\Date::unixtime('day');
+        $w =date('w');
+
+        $settles= Settle::where('createtime','>',$today)->select();
+        foreach ($settles as $settle) {
+            $data=[
+                'online_fee'=>0,
+                'reward_fee'=>0,
+                'real_fee'=>0,
+            ];
+            if ($settle['buy_amount']>0){
+                if($w==5){
+                    
+                    $data['online_fee']=floor($settle['buy_amount']*config('site.zwsjf')/100);
+                }
+                else{
+                    $data['online_fee']=floor($settle['buy_amount']*config('site.ydssjf')/100);
+                }
+                if ($settle['buy_amount']>=20000){
+                    $data['reward_fee']=88;
+                }
+                if ($settle['buy_amount']>=50000){
+                    $data['reward_fee']=188;
+//                    \app\common\model\User::money(288,$settle['user_id'],'抢购金额超70000奖励');
+                }
+                if ($settle['buy_amount']>=70000){
+                    $data['reward_fee']=288;
+                }
+                $data['real_fee']=$data['online_fee']-$data['reward_fee'];
+                $settle->save($data);
+
+                //
+                if ($data['online_fee']>0) \app\common\model\User::money(-$data['online_fee'],$settle['user_id'],'扣除上架费');
+                if ($data['reward_fee']>0) \app\common\model\User::money($data['reward_fee'],$settle['user_id'],'奖励上架费');
+            }
+
+        }
         $this->success('汇算成功','',$res);
     }
 

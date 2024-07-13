@@ -22,7 +22,7 @@ class Qg extends Api
     public function index()
     {
         $data = [
-            "manyminutes"=> "1",
+        "manyminutes"=> "1",
         "rushswitch"=> config('site.qgkg'),
         "starttime"=> config('site.qgkssj'),
         "endtime"=> config('site.qgsusj'),
@@ -30,7 +30,8 @@ class Qg extends Api
         "name"=> config('site.name'),
         "price_more"=> "0.00",
         "ordercount"=> 0,
-        "sumprice"=> 0
+        "sumprice"=> 0,
+        'txswitch'=>0,
         ];
         $this->success('获取成功',$data);
     }
@@ -41,7 +42,7 @@ class Qg extends Api
         $startTime  = strtotime(date('Y-m-d').' '.config('site.qgkssj'));
         $endTime  = strtotime(date('Y-m-d').' '.config('site.qgsusj'));
         $today = \fast\Date::unixtime('day');
-        $maxBuy=config('site.qgkssj');
+        $maxBuy=config('site.jyrkqds');
         $now =time();
         $vipStartTime = $startTime-60;
         if ($user['isVip']==0){
@@ -60,14 +61,14 @@ class Qg extends Api
 
 
 //        $todayBuy = Order::where('buyUserId',$user['id'])->where('createtime','>',$today)->count();
-        if ($user['left_buy']<=0) $this->error('最大可抢购'.$maxBuy);
+        if ($user['left_buy']<=0) $this->error('最大可抢购'.$maxBuy.'单');
 
 
         $id = $this->request->param('id');
         $goods = Goods::get($id);
         if (!$goods) $this->error('无此商品');
-        if ($goods['buyer_id']>0) $this->error('此商品被人抢走啦');
         if ($goods['seller_id']==$user['id']) $this->error('不能抢购自己的商品');
+        if ($goods['buyer_id']>0) $this->error('此商品被人抢走啦');
         $orderSn = 'QG'.getSn();
         $goods->save([
             'orderSn'=>$orderSn,
@@ -88,11 +89,11 @@ class Qg extends Api
         ]);
         $user->setInc('today_buy');
         $user->setDec('left_buy');
-        $upUser = \app\admin\model\User::get($user['up_id']);
-        if ($upUser){
-            \app\common\model\User::score($goods['goodsPrice']*0.004,$upUser['id'],'佣金奖励');
-            Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$user['id'])->setInc('money',$goods['goodsPrice']*0.004);
-        }
+        // $upUser = \app\admin\model\User::get($user['up_id']);
+        // if ($upUser){
+        //     \app\common\model\User::score($goods['goodsPrice']*0.004,$upUser['id'],'佣金奖励');
+        //     Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$user['id'])->setInc('money',$goods['goodsPrice']*0.004);
+        // }
 //        $todayAmount = Order::where('buyUserId',$user['id'])->where('createtime','>',$today)->sum('price');
 //        if($todayAmount>=70000)
         $this->success('抢购成功');
@@ -100,12 +101,13 @@ class Qg extends Api
 
     public function goodsList()
     {
+        $today = \fast\Date::unixtime('day');
         $user =$this->auth->getUser();
         $limit = $this->request->param('limit',20);
 //        $page = $this->request->param('page',1);
-        $list = Goods::where('status','1')->where('onlineStatus','1')->where('seller_id','!=',$user['id'])->paginate($limit);
-        $ordercount = Goods::where('buyer_id',$user['id'])->where('status','>','1')->count();
-        $orderprice = Goods::where('buyer_id',$user['id'])->where('status','>','1')->sum('goodsPrice');
+        $list = Goods::where('status','1')->where('onlineStatus','1')->where('seller_id','<>',$user['id'])->paginate($limit);
+        $ordercount = Order::where('buyUserId',$user['id'])->where('status','>=','1')->where('createtime','>=',$today)->count();
+        $orderprice = Order::where('buyUserId',$user['id'])->where('status','>=','1')->where('createtime','>=',$today)->sum('price');
         $result = ['info' => ['ordercount'=>$ordercount,'orderprice'=>$orderprice], 'list'=>$list];
         $this->success('获取成功',$result);
     }

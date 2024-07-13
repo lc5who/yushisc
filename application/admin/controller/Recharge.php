@@ -72,6 +72,15 @@ class Recharge extends Backend
         }
 
         User::money($params['money'], $params['user_id'], '后台充值'.$params['mark']);
+        if ($user['money']>=0){
+                $now= time();
+                // User::money(-$online_fee, $rec['user_id'], '支出上架费'.$online_fee);
+                \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->update([
+                    'onlinetime'=>$now,
+                    'onlineStatus'=>'1',
+                    'status'=>'1'
+                ]);
+            }
         $this->success();
     }
 
@@ -86,11 +95,11 @@ class Recharge extends Backend
         if ($state=='1'){
             User::money($rec['money'], $rec['user_id'], '充值成功');
             $user = User::get($rec['user_id']);
-            $online_fee = \app\admin\model\Goods::where('seller_id',$user['id'])->where('status','0')->sum('onlinePrice');
-            if ($user['money']>=$online_fee){
+            $online_fee = \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->sum('onlinePrice');
+            if ($user['money']>=0){
                 $now= time();
-                User::money(-$online_fee, $rec['user_id'], '支出上架费'.$online_fee);
-                \app\admin\model\Goods::where('seller_id',$user['id'])->where('status','0')->update([
+                // User::money(-$online_fee, $rec['user_id'], '支出上架费'.$online_fee);
+                \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->where('status','0')->update([
                     'onlinetime'=>$now,
                     'onlineStatus'=>'1',
                     'status'=>'1'

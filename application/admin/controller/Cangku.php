@@ -62,6 +62,7 @@ class Cangku extends Backend
             'onlineStatus'=>$params['onlineStatus'],
             'seller_id'=>$user['id'],
         ]);
+        \app\admin\model\Cangku::destroy($row['id']);
         $this->success();
     }
 

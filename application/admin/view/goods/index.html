@@ -20,6 +20,7 @@
                         <a href="javascript:;" class="btn btn-success btn-add {:$auth->check('goods/add')?'':'hide'}" title="{:__('Add')}" ><i class="fa fa-plus"></i> {:__('Add')}</a>
                         <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled {:$auth->check('goods/edit')?'':'hide'}" title="{:__('Edit')}" ><i class="fa fa-pencil"></i> {:__('Edit')}</a>
                         <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled {:$auth->check('goods/del')?'':'hide'}" title="{:__('Delete')}" ><i class="fa fa-trash"></i> {:__('Delete')}</a>
+                        <!--<a href="javascript:;" class="btn btn-success btn-ajax" data-params="action=start" data-url="goods/sjf" href="javascript:;" title="sjf" ><i class="fa fa-dollar"></i>扣除上架费</a>-->
                         
 
                         <div class="dropdown btn-group {:$auth->check('goods/multi')?'':'hide'}">
@@ -28,6 +29,8 @@
                                 {foreach name="statusList" item="vo"}
                                 <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:" data-params="status={$key}">{:__('Set status to ' . $key)}</a></li>
                                 {/foreach}
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:" data-params="onlineStatus=1">批量上架</a></li>
+                                <li><a class="btn btn-link btn-multi btn-disabled disabled" href="javascript:" data-params="onlineStatus=0">批量下架</a></li>
                             </ul>
                         </div>
 

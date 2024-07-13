@@ -1,10 +1,10 @@
 <?php
 
 return array (
-  'name' => '我的网站',
+  'name' => '广州益创数据科技有限公司',
   'beian' => '',
   'cdnurl' => '',
-  'version' => '1.0.1',
+  'version' => '1.0.4',
   'timezone' => 'Asia/Shanghai',
   'forbiddenip' => '',
   'languages' => 
@@ -50,10 +50,10 @@ return array (
   'zwsjf' => '3.2',
   'yjbl' => '0.4',
   'tdyjdb' => '500000',
-  'qgkg' => '1',
-  'qgkssj' => '11:00:00',
-  'qgsusj' => '18:00:00',
+  'qgkg' => '0',
+  'qgkssj' => '12:00:00',
+  'qgsusj' => '15:00:00',
   'ejmm' => '123456',
   'qgybjt' => '',
-  'sjkg' => '1',
+  'sjkg' => '0',
 );

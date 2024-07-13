@@ -4,11 +4,14 @@ namespace app\api\controller;
 
 use app\admin\model\Banner;
 use app\admin\model\Cmbank;
+use app\admin\model\Goods;
 use app\admin\model\Sign;
 use app\common\controller\Api;
 use app\common\exception\UploadException;
 use app\common\library\Upload;
 use think\Config;
+use think\Db;
+use app\admin\model\Settle;
 
 /**
  * 首页接口
@@ -206,5 +209,85 @@ class Index extends Api
                 continue;
             }
         }
+    }
+    public function gain()
+    {
+        $today = \fast\Date::unixtime('day');
+        $orders = \app\admin\model\Order::where('createtime','>',$today)->where('status','4')->select();
+        $w =date('w');
+        foreach ($orders as $k=>$order){
+            //确认订单之后做的事
+            //1.新增商品,提价
+            $buyer = \app\admin\model\User::get($order['buyUserId']);
+            $upUser = \app\admin\model\User::get($buyer['up_id']);
+            if ($upUser){
+                \app\common\model\User::score($order['price']*0.004,$upUser['id'],'佣金奖励');
+                Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$buyer['id'])->setInc('money',$order['price']*0.004);
+            }
+
+
+            $goods = Goods::get($order['goodsId']);
+            if($w==5){
+                $online_fee= $goods['goodsPrice']*config('site.zwsjf')/100;
+            }
+            else{
+                $online_fee=$goods['goodsPrice']*config('site.ydssjf')/100;
+            }
+            $newGoods = [
+                'goodsName'=>$goods['goodsName'],
+                'goodsimage'=>$goods['goodsimage'],
+                'goodsSn'=>getSn(),
+                'goodsPrice'=>$goods['goodsPrice']*1.05,
+                'seller_id'=>$goods['buyer_id'],
+                'mobile'=>$goods['buymobile'],
+                'username'=>$goods['buyusername'],
+                'status'=>'1',
+                'onlineStatus'=>0,
+                'onlinePrice'=>$online_fee,
+            ];
+            Goods::create($newGoods);
+        }
+
+    }
+    public function settleCount()
+    {
+        $today = \fast\Date::unixtime('day');
+        $w =date('w');
+
+        $settles= Settle::where('createtime','>',$today)->select();
+        foreach ($settles as $settle) {
+            $data=[
+                'online_fee'=>0,
+                'reward_fee'=>0,
+                'real_fee'=>0,
+            ];
+            if ($settle['buy_amount']>0){
+                if($w==5){
+                    
+                    $data['online_fee']=floor($settle['buy_amount']*config('site.zwsjf')/100);
+                }
+                else{
+                    $data['online_fee']=floor($settle['buy_amount']*config('site.ydssjf')/100);
+                }
+                if ($settle['buy_amount']>=20000){
+                    $data['reward_fee']=88;
+                }
+                if ($settle['buy_amount']>=50000){
+                    $data['reward_fee']=188;
+//                    \app\common\model\User::money(288,$settle['user_id'],'抢购金额超70000奖励');
+                }
+                if ($settle['buy_amount']>=70000){
+                    $data['reward_fee']=288;
+                }
+                $data['real_fee']=$data['online_fee']-$data['reward_fee'];
+                $settle->save($data);
+
+                //
+                if ($data['online_fee']>0) \app\common\model\User::money(-$data['online_fee'],$settle['user_id'],'扣除上架费');
+                if ($data['reward_fee']>0) \app\common\model\User::money($data['reward_fee'],$settle['user_id'],'奖励上架费');
+            }
+
+        }
+
     }
 }
