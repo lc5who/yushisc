@@ -597,6 +597,9 @@ class User extends Api
             $bb =Bankinfo::where('userId',$user['id'])->where('type',$data['type'])->find();
             if ($bb) $this->error('同个收款方式只能拥有一个收款信息');
             Bankinfo::create($data);
+            $user->save([
+                'isBank'=>1,
+            ]);
             $this->success('添加成功');
         }
     }
