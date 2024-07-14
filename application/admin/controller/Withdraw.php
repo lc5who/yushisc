@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\common\controller\Backend;
+use app\common\model\User;
 
 /**
  * 提现
@@ -37,12 +38,39 @@ class Withdraw extends Backend
             return $this->selectpage();
         }
         [$where, $sort, $order, $offset, $limit] = $this->buildparams();
-        $list = $this->model::with('Bankinfo')
+        $list = $this->model::with(['Bankinfo','User'])
             ->where($where)
             ->order($sort, $order)
             ->paginate($limit);
         $result = ['total' => $list->total(), 'rows' => $list->items()];
         return json($result);
+    }
+
+    public function pass()
+    {
+        $id = input('ids');
+        $withdraw = \app\admin\model\Withdraw::get($id);
+        if (!$withdraw) $this->error('无此提现订单');
+        if ($withdraw['status']!=0) $this->error('该笔提现已经审核过了');
+        $withdraw->save([
+            'status'=>1,
+            'checkTime'=>time()
+        ]);
+        $this->success('审核成功');
+    }
+
+    public function reject()
+    {
+        $id = input('ids');
+        $withdraw = \app\admin\model\Withdraw::get($id);
+        if (!$withdraw) $this->error('无此提现订单');
+        if ($withdraw['status']!=0) $this->error('该笔提现已经审核过了');
+        $withdraw->save([
+            'status'=>2,
+            'checkTime'=>time()
+        ]);
+        User::score($withdraw['money'],$withdraw['userId'],'提现拒绝');
+        $this->success('拒绝成功');
     }
 
 

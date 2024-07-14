@@ -162,14 +162,11 @@ class Settle extends Backend
             }
 
         }
-        Order::where('createtime','>',$now)->where('status','1')->update([
-            'status'=>'2',
-        ]);
-        
+
         $today = \fast\Date::unixtime('day');
         $w =date('w');
 
-        $settles= Settle::where('createtime','>',$today)->select();
+        $settles= \app\admin\model\Settle::where('createtime','>=',$today)->select();
         foreach ($settles as $settle) {
             $data=[
                 'online_fee'=>0,

@@ -65,7 +65,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         },
         settle: function () {
             Controller.api.bindevent();
-            $('.btn-refresh').click()
+            table.bootstrapTable('refresh', {});
         },
         api: {
             bindevent: function () {

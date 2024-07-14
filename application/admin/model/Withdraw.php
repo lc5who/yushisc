@@ -48,4 +48,8 @@ class Withdraw extends Model
     {
         return $this->belongsTo('Bankinfo','payid');
     }
+    public function User()
+    {
+        return $this->belongsTo('User','userId');
+    }
 }

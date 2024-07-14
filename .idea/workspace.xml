@@ -5,37 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f7ac7ab-dae6-45bb-b8e2-8bbaaa817db8" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/public/uploads/20240714/91e7e9659edd1aedcc5bb6730288e44e.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/index/view/index/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/view/index/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/index.7498ef85.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-art-index.e15573b3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-art-index.e15573b3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-art-list.86d1b583.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-art-list.86d1b583.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-address.a0d177e8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-address.a0d177e8.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-address_add~pages-bonus-address_edit~pages-index-index~pages-index-rush~pages-warehouse-~3c0a7958.c59a9e02.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-address_add~pages-bonus-address_edit~pages-index-index~pages-index-rush~pages-warehouse-~3c0a7958.c59a9e02.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-card_add.5046744a.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-card_add.5046744a.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-card_list.2f206a3d.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-card_list.2f206a3d.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-coin_record~pages-rush-list.b8c0ee48.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-coin_record~pages-rush-list.b8c0ee48.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_add.de042016.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_add.de042016.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_list.4b5a4eb5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_list.4b5a4eb5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-smrz.8ee52127.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-smrz.8ee52127.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-teamorder.73d0a808.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-teamorder.73d0a808.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-index-rush.3cb49b28.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-index-share.b7c29fc3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-index-share.b7c29fc3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-index-user.e442ffee.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-index-user.e442ffee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-rush-detail.cad763af.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-rush-detail.cad763af.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-team-myteam_info.2cd36b0e.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-team-myteam_info.2cd36b0e.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-team-team_fu.72940cf5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-team-team_fu.72940cf5.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-account.57a44705.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-account.57a44705.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-email~pages-user-forget~pages-user-login~pages-user-register~pages-user-setname.ebb99631.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-email~pages-user-forget~pages-user-login~pages-user-register~pages-user-setname.ebb99631.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-extract.6595bfe9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-extract.6595bfe9.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-money.eb3dd771.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-money.eb3dd771.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-moneyRecharge.f8dd4e32.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-moneyRecharge.f8dd4e32.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-password.4ae52e45.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-password.4ae52e45.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-paypassword.3591669f.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-paypassword.3591669f.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyer.7b07064f.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyer.7b07064f.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyerDetail.301c1c7a.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyerDetail.301c1c7a.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/static/js/pages-warehouse-seller.aae9c31c.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-warehouse-seller.aae9c31c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/controller/Settle.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/controller/Settle.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/controller/Withdraw.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/controller/Withdraw.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/model/Withdraw.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/model/Withdraw.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/api/controller/Qg.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/controller/Qg.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/extra/site.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/extra/site.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/backend/settle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/backend/settle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/backend/withdraw.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/backend/withdraw.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,6 +139,7 @@
       <workItem from="1719079727839" duration="4088000" />
       <workItem from="1719097982000" duration="129299000" />
       <workItem from="1720859402164" duration="22425000" />
+      <workItem from="1720963137175" duration="4963000" />
     </task>
     <servers />
   </component>

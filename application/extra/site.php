@@ -50,7 +50,7 @@ return array (
   'zwsjf' => '3.2',
   'yjbl' => '0.4',
   'tdyjdb' => '500000',
-  'qgkg' => '0',
+  'qgkg' => '1',
   'qgkssj' => '19:00:00',
   'qgsusj' => '23:00:00',
   'ejmm' => '123456',
