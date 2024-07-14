@@ -29,22 +29,23 @@ class Order extends Api
 
     public function buyOrderList()
     {
+        $today = \fast\Date::unixtime('day');
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
         $list = [];
-        if ($status<2){
-            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+        if ($status<2 || $status==4){
+            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('createtime','>=',$today)->where('status','0')->order('id desc')->paginate($limit);
             $this->success('获取成功',$list);
         }
 
         if ($status=='2'){
-            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('status','0')->select();
+            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('createtime','>=',$today)->where('status','0')->select();
             $this->success('获取成功',$list);
         }
 
         if ($status=='3'){
-            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('status','1')->select();
+            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('createtime','>=',$today)->where('status','1')->select();
             $this->success('获取成功',$list);
         }
         $this->success('获取成功',$list);
@@ -52,21 +53,22 @@ class Order extends Api
 
     public function sellOrderList()
     {
+        $today = \fast\Date::unixtime('day');
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
         $list = [];
         if ($status<2){
-            $list = Goods::where('seller_id',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+            $list = Goods::where('seller_id',$user['id'])->where('createtime','>=',$today)->where('status','0')->order('id desc')->paginate($limit);
             $this->success('获取成功',$list);
         }
         if ($status==3){
-            $list = Paylist::with(['seller','buyer'])->where('seller_id',$user['id'])->where('status','1')->select();
+            $list = Paylist::with(['seller','buyer'])->where('createtime','>=',$today)->where('seller_id',$user['id'])->where('status','<=','1')->select();
             $this->success('获取成功',$list);
         }
 
         if ($status==4){
-            $list = Paylist::with(['seller','buyer'])->where('seller_id',$user['id'])->where('status','2')->select();
+            $list = Paylist::with(['seller','buyer'])->where('createtime','>=',$today)->where('seller_id',$user['id'])->where('status','2')->select();
             $this->success('获取成功',$list);
         }
         $this->success('获取成功',$list);
@@ -157,9 +159,7 @@ class Order extends Api
     {
         $seller = $this->auth->getUser();
         $orderId = input('orderId');
-
         $today = \fast\Date::unixtime('day');
-        $today=0;
         $paylist = Paylist::with(['buyer','seller'])->where('seller_id',$seller['id'])->where('id',$orderId)->find();
 //        $buyer = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->find();
         $total = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->sum('money');

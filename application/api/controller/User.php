@@ -387,6 +387,9 @@ class User extends Api
                 'isDefault'=>0
             ]);
         }
+        $user->save([
+            'isAdd'=>1,
+        ]);
         Address::create($address);
 
         $this->success('操作成功');

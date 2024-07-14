@@ -57,6 +57,9 @@ class Order extends Backend
             //确认订单之后做的事
             //1.新增商品,提价
             $goods = \app\admin\model\Goods::get($order['goodsId']);
+            $goods->save([
+                'status'=>2,
+            ]);
             $w =date('w');
             if($w==5){
                 $online_fee= $goods['goodsPrice']*config('site.zwsjf')/100;

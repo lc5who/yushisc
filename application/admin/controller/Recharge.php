@@ -44,7 +44,7 @@ class Recharge extends Backend
         if ($this->dataLimit && $this->dataLimitFieldAutoFill) {
             $params[$this->dataLimitField] = $this->auth->id;
         }
-
+        User::money($params['money'], $params['user_id'], '后台充值'.$params['mark']);
         $user = User::get($params['user_id']);
         if (!$user) $this->error('无此会员');
         $params['pmdata']='后台充值';
@@ -71,11 +71,12 @@ class Recharge extends Backend
             $this->error(__('No rows were inserted'));
         }
 
-        User::money($params['money'], $params['user_id'], '后台充值'.$params['mark']);
+
+//        $user = User::get($params['user_id']);
         if ($user['money']>=0){
                 $now= time();
                 // User::money(-$online_fee, $rec['user_id'], '支出上架费'.$online_fee);
-                \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->update([
+                \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->where('status','0')->update([
                     'onlinetime'=>$now,
                     'onlineStatus'=>'1',
                     'status'=>'1',

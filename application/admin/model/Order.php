@@ -33,7 +33,7 @@ class Order extends Model
     
     public function getStatusList()
     {
-        return ['0' => __('Status 0'), '1' => __('Status 1')];
+        return ['0' => '等待确认', '1' => '交易完成'];
     }
 
 
