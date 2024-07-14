@@ -55,6 +55,7 @@ class Cangku extends Backend
             'goodsimage'=>$row['mainimage'],
             'goodsSn'=>$goodsSn,
             'goodsPrice'=>$row['price'],
+            'goodsContent'=>$row['content'],
             'mobile'=>$user['mobile'],
             'username'=>$user['nickname'],
             'status'=>$params['onlineStatus'],

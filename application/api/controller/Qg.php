@@ -31,7 +31,7 @@ class Qg extends Api
         "price_more"=> "0.00",
         "ordercount"=> 0,
         "sumprice"=> 0,
-        'txswitch'=>0,
+        'txswitch'=>config('site.txswitch'),
         ];
         $this->success('获取成功',$data);
     }

@@ -26,24 +26,14 @@ class Order extends Model
     // 追加属性
     protected $append = [
         'status_text',
-        'payTime_text',
         'endTime_text'
     ];
+    
 
-//    public function goods()
-//    {
-//        return $this->belongsTo('Goods','goodsId');
-//    }
     
     public function getStatusList()
     {
-        return [
-            '0' => '待抢购',
-            '1' => '已抢购',
-            '2' => '待打款',
-            '3' => '已打款',
-            '4' => '交易完成',
-        ];
+        return ['0' => __('Status 0'), '1' => __('Status 1')];
     }
 
 
@@ -55,22 +45,10 @@ class Order extends Model
     }
 
 
-    public function getPaytimeTextAttr($value, $data)
-    {
-        $value = $value ? $value : (isset($data['payTime']) ? $data['payTime'] : '');
-        return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
-    }
-
-
     public function getEndtimeTextAttr($value, $data)
     {
         $value = $value ? $value : (isset($data['endTime']) ? $data['endTime'] : '');
         return is_numeric($value) ? date("Y-m-d H:i:s", $value) : $value;
-    }
-
-    protected function setPaytimeAttr($value)
-    {
-        return $value === '' ? null : ($value && !is_numeric($value) ? strtotime($value) : $value);
     }
 
     protected function setEndtimeAttr($value)
@@ -82,5 +60,4 @@ class Order extends Model
     {
         return $this->belongsTo('Goods','goodsId','id');
     }
-
 }

@@ -51,9 +51,10 @@ return array (
   'yjbl' => '0.4',
   'tdyjdb' => '500000',
   'qgkg' => '0',
-  'qgkssj' => '12:00:00',
-  'qgsusj' => '15:00:00',
+  'qgkssj' => '19:00:00',
+  'qgsusj' => '23:00:00',
   'ejmm' => '123456',
   'qgybjt' => '',
-  'sjkg' => '0',
+  'sjkg' => '1',
+  'txswitch' => '1',
 );

@@ -32,14 +32,21 @@ class Order extends Api
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
-
-
-        if ($status=='3'){
-            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status','in','3,4')->order('id desc')->paginate($limit);
-        }else{
+        $list = [];
+        if ($status<2){
             $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
+            $this->success('获取成功',$list);
         }
 
+        if ($status=='2'){
+            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('status','0')->select();
+            $this->success('获取成功',$list);
+        }
+
+        if ($status=='3'){
+            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('status','1')->select();
+            $this->success('获取成功',$list);
+        }
         $this->success('获取成功',$list);
     }
 
@@ -48,22 +55,21 @@ class Order extends Api
         $user = $this->auth->getUser();
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
+        $list = [];
         if ($status<2){
             $list = Goods::where('seller_id',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
             $this->success('获取成功',$list);
         }
         if ($status==3){
-            $status=2;
+            $list = Paylist::with(['seller','buyer'])->where('seller_id',$user['id'])->where('status','1')->select();
+            $this->success('获取成功',$list);
         }
-        $list = OrderModel::with('goods')->where('sellUserId',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
-        $this->success('获取成功',$list);
-//        if ($status!=-1){
-//
-//        }else{
 
-//            $list = Goods::where('seller_id',$user['id'])->where('status','0')->order('id desc')->paginate($limit);
-//            $this->success('获取成功',$list);
-//        }
+        if ($status==4){
+            $list = Paylist::with(['seller','buyer'])->where('seller_id',$user['id'])->where('status','2')->select();
+            $this->success('获取成功',$list);
+        }
+        $this->success('获取成功',$list);
 
     }
 
@@ -71,13 +77,10 @@ class Order extends Api
     {
         $user = $this->auth->getUser();
         $orderId = input('orderId');
-        $order= OrderModel::get($orderId);
-        if (!$order) $this->error('无此订单');
-        if ($order['status']!='2') $this->error('当前订单已支付');
         $today = \fast\Date::unixtime('day');
-        $paylist = Paylist::where('buyer_id',$user['id'])->where('createtime','>',$today)->where('status','0')->find();
-
-        if (!$paylist) $this->error('无需支付');
+        $paylist = Paylist::get($orderId);
+        if (!$paylist) $this->error('没有待支付的款项');
+        if ($paylist['status']!='0') $this->error('当前款项已支付');
         $bankInfo = Bankinfo::where('userId',$paylist['seller_id'])->select();
         $payData = [];
         $bankData = [
@@ -125,7 +128,7 @@ class Order extends Api
             }
         }
         $payData['payInfo'] = $bankData;
-        $payData['orderId']=$order['id'];
+        $payData['orderId']=$paylist['id'];
         $payData['money']=$paylist['money'];
         $payData['payListId']=$paylist['id'];
         $this->success('获取成功',$payData);
@@ -133,13 +136,13 @@ class Order extends Api
 
     public function Pay()
     {
-        $orderId = input('orderId');
         $payId = input('payId');
         $payPic = input('payPic');
         $payListId = input('payListId');
+        if (empty($payPic)) $this->error('请上传凭证');
+        if ($payId<1) $this->error('请选择支付方式');
         $payInfo = Paylist::get($payListId);
-        $order= OrderModel::get($orderId);
-        if (!$payInfo) $this->error('无此订单');
+        if (!$payInfo) $this->error('无此支付订单');
         if ($payInfo['status']!='0') $this->error('当前订单已支付');
         $payInfo->save([
             'bankinfo_id'=>$payId,
@@ -147,51 +150,32 @@ class Order extends Api
             'paytime'=>time(),
             'status'=>'1',
         ]);
-        // if ($order){
-        //     $order->save([
-        //         'status'=>'3'
-        //     ]);
-        // }
         $this->success('提交成功，等待卖家确认');
     }
 
     public function confirmDetail()
     {
-        $orderId = input('orderId');
-        $order= OrderModel::get($orderId);
-        $goods = Goods::get($order['goodsId']);
-//      $seller = UserModel::get('sellUserId');
-
         $seller = $this->auth->getUser();
+        $orderId = input('orderId');
+
         $today = \fast\Date::unixtime('day');
-        $paylist = Paylist::with(['buyer','seller'])->where('seller_id',$seller['id'])->where('createtime','>=',$today)->select();
+        $today=0;
+        $paylist = Paylist::with(['buyer','seller'])->where('seller_id',$seller['id'])->where('id',$orderId)->find();
 //        $buyer = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->find();
-//        $total = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->sum('money');
-        $total = 0;
-        $list = [];
-        foreach ($paylist as $k=>$v){
-            $total=$total+$v['money'];
-            if($v['status']!=0){
-                 $list[]=[
-                'buyerName'=>$v['buyer']['nickname'],
-                'buyerMobile'=>$v['buyer']['username'],
-                'pay'=>$v['money'],
-                'reception'=>$v['payimage'],
-            ];
-            }
-           
-
-        }
-
+        $total = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->sum('money');
+        $list = [
+            'buyerName'=>$paylist['buyer']['nickname'],
+            'buyerMobile'=>$paylist['buyer']['username'],
+            'pay'=>$paylist['money'],
+            'reception'=>$paylist['payimage'],
+        ];
 
         $data = [
-            'orderId'=>1,
-            'goodsName'=>$goods['goodsName'],
-            'goodsLogo'=>$goods['goodsimage'],
+            'orderId'=>$paylist['id'],
             'sellerId'=>$seller['id'],
             'sellerName'=>$seller['nickname'],
             'sellerMobile'=>$seller['username'],
-            'price'=>$order['price'],
+            'price'=>$list['pay'],
             'totalReceive'=>$total,
             'list'=>$list,
         ];
@@ -202,117 +186,15 @@ class Order extends Api
     {
         $today = \fast\Date::unixtime('day');
         $seller = $this->auth->getUser();
-
-//        $pl = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->where('status','1')->select();
-//
-//        foreach ($pl as $payInfo) {
-//            $payInfo->save([
-//                'status'=>2,
-//                'paytime'=>time()
-//            ]);
-//
-//            $buyIsok = Paylist::where('buyer_id',$payInfo['buyer_id'])->where('createtime','>=',$today)->where('status','<','2')->find();
-//            if ($buyIsok){
-//                //do nothing
-//            }else{
-//
-//            }
-//        }
-
-        $pa = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->where('status','0')->select();
-        if($pa) $this->error('还有买家并未上传凭证,无法确认收款');
-        $paylist = Paylist::where('seller_id',$seller['id'])->where('createtime','>=',$today)->where('status','1')->update([
-            'status'=>2,
-            'paytime'=>time()
+        $orderId = input('orderId');
+        $pa = Paylist::get($orderId);
+        if (!$pa) $this->success('无此支付订单');
+        if ($pa['status']==2) $this->success('该订单已确认收款');
+        if ($pa['status']!=1) $this->success('该订单等待买家打款');
+        $pa->save([
+            'status'=>'2',
+            'checktime'=>time()
         ]);
-
-//        $orderId = input('orderId');
-//        $order= OrderModel::get($orderId);
-//        if (!$order) $this->error('无此订单');
-//        if ($order['status']!='3') $this->error('当前订单不可确认');
-
-        //确认卖家的订单
-        $orders= OrderModel::where('sellUserId',$seller['id'])->where('status','in','2,3')->where('createtime','>',$today)->select();
-        $w =date('w');
-        foreach ($orders as $k=>$order){
-            $order->save([
-                'endTime'=>time(),
-                'status'=>'4',
-            ]);
-            //确认订单之后做的事
-            //1.新增商品,提价
-            $buyer = \app\admin\model\User::get($order['buyUserId']);
-            $upUser = \app\admin\model\User::get($buyer['up_id']);
-            if ($upUser){
-                \app\common\model\User::score($order['price']*0.004,$upUser['id'],'佣金奖励');
-                Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$buyer['id'])->setInc('money',$order['price']*0.004);
-            }
-
-
-            $goods = Goods::get($order['goodsId']);
-            if($w==5){
-                $online_fee= $goods['goodsPrice']*config('site.zwsjf')/100;
-            }
-            else{
-                $online_fee=$goods['goodsPrice']*config('site.ydssjf')/100;
-            }
-            $newGoods = [
-                'goodsName'=>$goods['goodsName'],
-                'goodsimage'=>$goods['goodsimage'],
-                'goodsSn'=>getSn(),
-                'goodsPrice'=>$goods['goodsPrice']*1.05,
-                'seller_id'=>$goods['buyer_id'],
-                'mobile'=>$goods['buymobile'],
-                'username'=>$goods['buyusername'],
-                'status'=>'0',
-                'onlineStatus'=>0,
-                'onlinePrice'=>$online_fee,
-            ];
-            Goods::create($newGoods);
-            // \app\common\model\User::money(-$online_fee,$newGoods['seller_id'],"商品编号:{$newGoods['goodsSn']},上架费{$online_fee}");
-        }
-
-        //确认买家的订单
-        $orders= OrderModel::where('buyUserId',$seller['id'])->where('status','in','2,3')->where('createtime','>=',$today)->select();
-        $w =date('w');
-        foreach ($orders as $k=>$order){
-            $order->save([
-                'endTime'=>time(),
-                'status'=>'4',
-            ]);
-            //确认订单之后做的事
-            //1.新增商品,提价
-//            $buyer = \app\admin\model\User::get($order['buyUserId']);
-            $upUser = \app\admin\model\User::get($seller['up_id']);
-            if ($upUser){
-                \app\common\model\User::score($order['price']*0.004,$upUser['id'],'佣金奖励');
-                Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$seller['id'])->setInc('money',$order['price']*0.004);
-            }
-
-
-            $goods = Goods::get($order['goodsId']);
-            if($w==5){
-                $online_fee= $goods['goodsPrice']*config('site.zwsjf')/100;
-            }
-            else{
-                $online_fee=$goods['goodsPrice']*config('site.ydssjf')/100;
-            }
-            $newGoods = [
-                'goodsName'=>$goods['goodsName'],
-                'goodsimage'=>$goods['goodsimage'],
-                'goodsSn'=>getSn(),
-                'goodsPrice'=>$goods['goodsPrice']*1.05,
-                'seller_id'=>$goods['buyer_id'],
-                'mobile'=>$goods['buymobile'],
-                'username'=>$goods['buyusername'],
-                'status'=>'0',
-                'onlineStatus'=>0,
-                'onlinePrice'=>$online_fee,
-            ];
-            Goods::create($newGoods);
-            // \app\common\model\User::money(-$online_fee,$newGoods['seller_id'],"商品编号:{$newGoods['goodsSn']},上架费{$online_fee}");
-        }
-
         $this->success('确认成功');
     }
 }

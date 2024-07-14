@@ -33,7 +33,7 @@ class Goods extends Model
     
     public function getStatusList()
     {
-        return ['0' => __('Status 0'), '1' => __('Status 1'), '2' => __('Status 2'), '3' => __('Status 3')];
+        return ['0' => __('Status 0'), '1' => __('Status 1'), '2' =>'交易完成'];
     }
 
 

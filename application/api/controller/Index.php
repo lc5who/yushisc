@@ -5,6 +5,7 @@ namespace app\api\controller;
 use app\admin\model\Banner;
 use app\admin\model\Cmbank;
 use app\admin\model\Goods;
+use app\admin\model\Score;
 use app\admin\model\Sign;
 use app\common\controller\Api;
 use app\common\exception\UploadException;
@@ -289,5 +290,50 @@ class Index extends Api
 
         }
 
+    }
+
+    public function setScore()
+    {
+        $today = \fast\Date::unixtime('day');
+        $settles= Settle::where('createtime','>=',$today)->select();
+        foreach ($settles as $settle) {
+            if ($settle['buy_amount']>0){
+                $user = \app\admin\model\User::get($settle['user_id']);
+
+                $upUser = \app\admin\model\User::get($user['up_id']);
+                if ($upUser){
+                    $yj = floor($settle['buy_amount']*0.004);
+                    \app\common\model\User::score($yj,$upUser['id'],'佣金奖励');
+                    Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$user['id'])->setInc('money',$settle['buy_amount']*0.004);
+                    Score::create([
+                        'user_id'=>$upUser['id'],
+                        'mobile'=>$upUser['username'],
+                        'name'=>$upUser['nickname'],
+                        'score'=>$yj,
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function ordertogood()
+    {
+        $orders = \app\admin\model\Order::all();
+        foreach ($orders as $order) {
+            $goods = Goods::get($order['goodsId']);
+            $newGoods = [
+                'goodsName'=>$goods['goodsName'],
+                'goodsimage'=>$goods['goodsimage'],
+                'goodsSn'=>getSn(),
+                'goodsPrice'=>$goods['goodsPrice']*1.05,
+                'seller_id'=>$goods['buyer_id'],
+                'mobile'=>$goods['buymobile'],
+                'username'=>$goods['buyusername'],
+                'status'=>'0',
+                'onlineStatus'=>1,
+//                'onlinePrice'=>$online_fee,
+            ];
+            Goods::create($newGoods);
+        }
     }
 }

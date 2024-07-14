@@ -78,7 +78,8 @@ class Recharge extends Backend
                 \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->update([
                     'onlinetime'=>$now,
                     'onlineStatus'=>'1',
-                    'status'=>'1'
+                    'status'=>'1',
+                    'isSjf'=>'1',
                 ]);
             }
         $this->success();
@@ -102,7 +103,8 @@ class Recharge extends Backend
                 \app\admin\model\Goods::where('seller_id',$user['id'])->where('onlineStatus','0')->where('status','0')->update([
                     'onlinetime'=>$now,
                     'onlineStatus'=>'1',
-                    'status'=>'1'
+                    'status'=>'1',
+                    'isSjf'=>'1'
                 ]);
             }
         }

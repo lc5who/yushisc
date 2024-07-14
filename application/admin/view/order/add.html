@@ -25,21 +25,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Payid')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-payid" class="form-control" name="row[payid]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Price')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-price" class="form-control" name="row[price]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Isdk')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-isdk" class="form-control" name="row[isdk]" type="number">
+            <input id="c-price" class="form-control" name="row[price]" type="number">
         </div>
     </div>
     <div class="form-group">
@@ -48,64 +36,10 @@
             
             <div class="radio">
             {foreach name="statusList" item="vo"}
-            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="11"}checked{/in} /> {$vo}</label> 
+            <label for="row[status]-{$key}"><input id="row[status]-{$key}" name="row[status]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label> 
             {/foreach}
             </div>
 
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Draw')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-draw" class="form-control" name="row[draw]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Onlineprice')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-onlinePrice" class="form-control" step="0.01" name="row[onlinePrice]" type="number" value="0.00">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Num')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-num" class="form-control" name="row[num]" type="number">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Sumprice')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-sumPrice" class="form-control" name="row[sumPrice]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Paymoney')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-payMoney" class="form-control" name="row[payMoney]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Paypic')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-payPic" class="form-control" name="row[payPic]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Type')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-type" class="form-control" name="row[type]" type="number">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Dkinfo')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-dkinfo" class="form-control" name="row[dkinfo]" type="text">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Paytime')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-payTime" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[payTime]" type="text" value="{:date('Y-m-d H:i:s')}">
         </div>
     </div>
     <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\Score;
 use app\admin\model\User;
 use app\common\controller\Backend;
 use app\admin\model\Order;
@@ -195,13 +196,27 @@ class Settle extends Backend
                 }
                 $data['real_fee']=$data['online_fee']-$data['reward_fee'];
                 $settle->save($data);
-
-                //
                 if ($data['online_fee']>0) \app\common\model\User::money(-$data['online_fee'],$settle['user_id'],'扣除上架费');
                 if ($data['reward_fee']>0) \app\common\model\User::money($data['reward_fee'],$settle['user_id'],'奖励上架费');
+
+                //发放佣金
+                $user = \app\admin\model\User::get($settle['user_id']);
+                $upUser = \app\admin\model\User::get($user['up_id']);
+                if ($upUser){
+                    $yj = floor($settle['buy_amount']*0.004);
+                    \app\common\model\User::score($yj,$upUser['id'],'佣金奖励');
+                    Db::name('commission')->where('user_id',$upUser['id'])->where('sub_id',$user['id'])->setInc('money',$settle['buy_amount']*0.004);
+                    Score::create([
+                        'user_id'=>$upUser['id'],
+                        'mobile'=>$upUser['username'],
+                        'name'=>$upUser['nickname'],
+                        'score'=>$yj,
+                    ]);
+                }
             }
 
         }
+        config('site.qgkg',0);
         $this->success('汇算成功','',$res);
     }
 
