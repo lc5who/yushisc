@@ -1,59 +1,17 @@
 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
 
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Seller_id')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-seller_id" data-rule="required" data-source="seller/index" class="form-control selectpage" name="row[seller_id]" type="text" value="{$row.seller_id|htmlentities}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Buyer_id')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-buyer_id" data-rule="required" data-source="buyer/index" class="form-control selectpage" name="row[buyer_id]" type="text" value="{$row.buyer_id|htmlentities}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Money')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-money" data-rule="required" class="form-control" step="0.01" name="row[money]" type="number" value="{$row.money|htmlentities}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Bankinfo_id')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-bankinfo_id" data-rule="required" data-source="bankinfo/index" class="form-control selectpage" name="row[bankinfo_id]" type="text" value="{$row.bankinfo_id|htmlentities}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Payimage')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <div class="input-group">
-                <input id="c-payimage" data-rule="required" class="form-control" size="50" name="row[payimage]" type="text" value="{$row.payimage|htmlentities}">
-                <div class="input-group-addon no-border no-padding">
-                    <span><button type="button" id="faupload-payimage" class="btn btn-danger faupload" data-input-id="c-payimage" data-mimetype="image/gif,image/jpeg,image/png,image/jpg,image/bmp,image/webp" data-multiple="false" data-preview-id="p-payimage"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
-                    <span><button type="button" id="fachoose-payimage" class="btn btn-primary fachoose" data-input-id="c-payimage" data-mimetype="image/*" data-multiple="false"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
-                </div>
-                <span class="msg-box n-right" for="c-payimage"></span>
-            </div>
-            <ul class="row list-inline faupload-preview" id="p-payimage"></ul>
-        </div>
-    </div>
+
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-status" data-rule="required" class="form-control" name="row[status]" type="number" value="{$row.status|htmlentities}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Checktime')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-checktime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[checktime]" type="text" value="{:$row.checktime?datetime($row.checktime):''}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Paytime')}:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-paytime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[paytime]" type="text" value="{:$row.paytime?datetime($row.paytime):''}">
+
+            <div class="radio">
+                <label for="row[status]-0"><input id="row[status]-0" name="row[status]" type="radio" value="0" /> 未支付</label>
+                <label for="row[status]-1"><input id="row[status]-1" name="row[status]" type="radio" value="1" /> 已打款</label>
+                <label for="row[status]-2"><input id="row[status]-2" name="row[status]" type="radio" value="2" /> 已收款</label>
+
+            </div>
+
         </div>
     </div>
     <div class="form-group layer-footer">

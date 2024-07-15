@@ -6,12 +6,38 @@
   <component name="ChangeListManager">
     <list default="true" id="6f7ac7ab-dae6-45bb-b8e2-8bbaaa817db8" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/admin/controller/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/controller/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/admin/controller/Recharge.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/controller/Recharge.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/admin/model/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/model/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/controller/Goods.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/controller/Goods.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/controller/Settle.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/controller/Settle.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/view/paylist/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/view/paylist/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/admin/view/settle/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin/view/settle/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/api/controller/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/controller/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/api/controller/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/api/controller/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/backend/goods.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/backend/goods.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/backend/settle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/backend/settle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-art-index.e5330ec3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-art-index.e5330ec3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-art-list.902639e3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-art-list.902639e3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-address.4a45c508.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-address.4a45c508.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-address_add~pages-bonus-address_edit~pages-index-index~pages-index-rush~pages-warehouse-~3c0a7958.5f775a47.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-address_add~pages-bonus-address_edit~pages-index-index~pages-index-rush~pages-warehouse-~3c0a7958.5f775a47.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-card_add.6f47f18f.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-card_add.6f47f18f.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-card_list.64635733.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-card_list.64635733.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-coin_record~pages-rush-list.00a775fd.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-coin_record~pages-rush-list.00a775fd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_add.e4c55587.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_add.e4c55587.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_list.d80fa7aa.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-qrcode_list.d80fa7aa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-smrz.ca6411b9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-smrz.ca6411b9.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-bonus-teamorder.cb0edca5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-bonus-teamorder.cb0edca5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-index-share.a11a1172.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-index-share.a11a1172.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-index-user.03560ec6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-index-user.03560ec6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-rush-detail.02211b11.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-rush-detail.02211b11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-team-myteam_info.062512e1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-team-myteam_info.062512e1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-team-team_fu.c75acf25.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-team-team_fu.c75acf25.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-account.f16dbcf4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-account.f16dbcf4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-email~pages-user-forget~pages-user-login~pages-user-register~pages-user-setname.746fe1c5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-email~pages-user-forget~pages-user-login~pages-user-register~pages-user-setname.746fe1c5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-extract.d302a014.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-extract.d302a014.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-money.50ac663e.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-money.50ac663e.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-moneyRecharge.d95a3d1d.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-moneyRecharge.d95a3d1d.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-password.7b3a3d5a.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-password.7b3a3d5a.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-user-paypassword.b4c9b685.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-user-paypassword.b4c9b685.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyer.349986f9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyer.349986f9.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyerDetail.02a79036.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-warehouse-buyerDetail.02a79036.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/js/pages-warehouse-seller.e667ab1d.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/js/pages-warehouse-seller.e667ab1d.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +164,9 @@
       <workItem from="1719097982000" duration="129299000" />
       <workItem from="1720859402164" duration="22425000" />
       <workItem from="1720963137175" duration="10520000" />
+      <workItem from="1721009820281" duration="981000" />
+      <workItem from="1721019204631" duration="1192000" />
+      <workItem from="1721041645010" duration="6835000" />
     </task>
     <servers />
   </component>

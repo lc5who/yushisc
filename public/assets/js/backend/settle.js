@@ -12,6 +12,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                     multi_url: 'settle/multi',
                     import_url: 'settle/import',
                     settle_url: 'settle/count',
+                    bsettle_url: 'settle/bcount',
                     table: 'settle',
                 }
             });
@@ -64,6 +65,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Controller.api.bindevent();
         },
         settle: function () {
+            Controller.api.bindevent();
+            table.bootstrapTable('refresh', {});
+        },
+        bsettle: function () {
             Controller.api.bindevent();
             table.bootstrapTable('refresh', {});
         },

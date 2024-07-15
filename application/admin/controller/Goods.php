@@ -67,6 +67,8 @@ class Goods extends Backend
         $ids = $this->request->param('ids');
         $good=GoodsModel::get($ids);
         if (!$good) $this->error('无此商品');
+        User::where('id',$good['buyer_id'])->setInc('left_buy');
+        User::where('id',$good['buyer_id'])->setDec('today_buy');
         Order::where('orderSn',$good['orderSn'])->where('createtime','>',$today)->delete();
         $good->save([
             'buyer_id'=>0,
@@ -76,6 +78,7 @@ class Goods extends Backend
             'onlineStatus'=>'1',
             'orderSn'=>'',
         ]);
+
         $this->success('清除成功');
     }
     public function multi($ids = null)

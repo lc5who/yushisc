@@ -34,8 +34,12 @@ class Order extends Api
         $status = $this->request->param('status');
         $limit = $this->request->param('limit',50);
         $list = [];
-        if ($status<2 || $status==4){
-            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('createtime','>=',$today)->where('status','0')->order('id desc')->paginate($limit);
+        if ($status=='1'){
+            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status','0')->order('id desc')->paginate($limit);
+            $this->success('获取成功',$list);
+        }
+        if ($status=='4'){
+            $list = OrderModel::with('goods')->where('buyUserId',$user['id'])->where('status','1')->order('id desc')->paginate($limit);
             $this->success('获取成功',$list);
         }
 
@@ -45,7 +49,7 @@ class Order extends Api
         }
 
         if ($status=='3'){
-            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('createtime','>=',$today)->where('status','1')->select();
+            $list = Paylist::with(['seller','buyer'])->where('buyer_id',$user['id'])->where('createtime','>=',$today)->where('status','>','0')->select();
             $this->success('获取成功',$list);
         }
         $this->success('获取成功',$list);
@@ -59,7 +63,7 @@ class Order extends Api
         $limit = $this->request->param('limit',50);
         $list = [];
         if ($status<2){
-            $list = Goods::where('seller_id',$user['id'])->where('createtime','>=',$today)->where('status','0')->order('id desc')->paginate($limit);
+            $list = Goods::where('seller_id',$user['id'])->where('status',$status)->order('id desc')->paginate($limit);
             $this->success('获取成功',$list);
         }
         if ($status==3){
@@ -80,7 +84,7 @@ class Order extends Api
         $user = $this->auth->getUser();
         $orderId = input('orderId');
         $today = \fast\Date::unixtime('day');
-        $paylist = Paylist::get($orderId);
+        $paylist = Paylist::with('seller')->where('id',$orderId)->find();
         if (!$paylist) $this->error('没有待支付的款项');
         if ($paylist['status']!='0') $this->error('当前款项已支付');
         $bankInfo = Bankinfo::where('userId',$paylist['seller_id'])->select();
@@ -133,6 +137,7 @@ class Order extends Api
         $payData['orderId']=$paylist['id'];
         $payData['money']=$paylist['money'];
         $payData['payListId']=$paylist['id'];
+        $payData['seller']=$paylist['seller']['nickname'];
         $this->success('获取成功',$payData);
     }
 

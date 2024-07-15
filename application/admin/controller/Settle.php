@@ -52,12 +52,41 @@ class Settle extends Backend
         return json($result);
     }
 
+    public function bcount()
+    {
+
+        $zero = \fast\Date::unixtime('day');
+        $now =$zero;
+        \app\admin\model\Settle::where('createtime','>',$now)->delete();
+//        if (\app\admin\model\Settle::where('createtime','>',$now)->find()) $this->error('今日已汇算过');
+        //查询今日的订单
+        $sql = "SELECT a.user_id,a.online_amount,b.buy_amount from(SELECT sellUserId as user_id,SUM(price) as online_amount from fa_order where createtime>{$now} GROUP by sellUserId) a left JOIN (SELECT buyUserId as user_id,SUM(price) as buy_amount from fa_order where createtime>{$now} GROUP by buyUserid) b on a.user_id = b.user_id union SELECT b.user_id,a.online_amount,b.buy_amount from (SELECT sellUserId as user_id,SUM(price) as online_amount from fa_order where createtime>{$now} GROUP by sellUserId) a right JOIN (SELECT buyUserId as user_id,SUM(price) as buy_amount from fa_order where createtime>{$now} GROUP by buyUserid) b on a.user_id = b.user_id";
+        $res = Db::query($sql);
+//        $data =json_encode($res,JSON_UNESCAPED_UNICODE);
+        $data =[];
+        foreach ($res as $k=>$v){
+            $user = User::get($v['user_id']);
+            $res[$k]['user_mobile']=$user['username'];
+            $res[$k]['user_name']=$user['nickname'];
+            if ($v['online_amount']==null) $res[$k]['online_amount']=0;
+            if ($v['buy_amount']==null) $res[$k]['buy_amount']=0;
+            if ($v['buy_amount']>$v['online_amount']){
+                $res[$k]['pay']=$v['buy_amount']-$v['online_amount'];
+                $res[$k]['income']=0;
+            }else{
+                $res[$k]['income']=$v['online_amount']-$v['buy_amount'];
+                $res[$k]['pay']=0;
+            }
+            \app\admin\model\Settle::create($res[$k]);
+        }
+        $this->success('操作成功');
+    }
     public function count()
     {
         $zero = \fast\Date::unixtime('day');
-//        $now = time();
         $now =$zero;
-        if (\app\admin\model\Settle::where('createtime','>',$now)->find()) $this->error('今日已汇算过');
+        \app\admin\model\Settle::where('createtime','>=',$now)->delete();
+//        if (\app\admin\model\Settle::where('createtime','>',$now)->find()) $this->error('今日已汇算过');
         //查询今日的订单
         $sql = "SELECT a.user_id,a.online_amount,b.buy_amount from(SELECT sellUserId as user_id,SUM(price) as online_amount from fa_order where createtime>{$now} GROUP by sellUserId) a left JOIN (SELECT buyUserId as user_id,SUM(price) as buy_amount from fa_order where createtime>{$now} GROUP by buyUserid) b on a.user_id = b.user_id union SELECT b.user_id,a.online_amount,b.buy_amount from (SELECT sellUserId as user_id,SUM(price) as online_amount from fa_order where createtime>{$now} GROUP by sellUserId) a right JOIN (SELECT buyUserId as user_id,SUM(price) as buy_amount from fa_order where createtime>{$now} GROUP by buyUserid) b on a.user_id = b.user_id";
         $res = Db::query($sql);
